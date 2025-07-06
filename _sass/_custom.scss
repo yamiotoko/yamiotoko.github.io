@@ -4,7 +4,7 @@ $dark-section: #111;
 $light-text: #fff;
 $accent-gray: #aaa;
 $border-color: #333;
-$accent-color: #f0c050;
+$accent-color: #f0c050; // アクセントカラーを追加
 
 // 基本スタイル
 body {
@@ -32,89 +32,37 @@ body {
 
 // ヒーローセクション
 .hero {
+  // height: 100vh;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  // text-align: center;
+  // background: radial-gradient(ellipse at center, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%);
+  position: relative;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  position: relative;
-  overflow: hidden;
-}
+  overflow: hidden; /* はみ出し防止 */
 
-/* グローバル動画背景スタイル */
-.global-video-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: -100;
-  
-  video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-    filter: brightness(1.1); /* 明るさ調整 */
+
+  h1 {
+    font-size: 5rem;
+    letter-spacing: 0.5rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    font-family: 'Montserrat', sans-serif;
   }
-}
-
-.video-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.2); /* オーバーレイを明るく */
-  z-index: -99;
-}
-
-/* コンテンツを前面に表示 */
-.page-content, 
-.site-header, 
-.site-footer {
-  position: relative;
-  z-index: 1;
-}
-
-.hero-content {
-  text-align: center;
-  padding: 20px;
-}
-
-.hero-logo {
-  max-width: 300px;
-  margin: 0 auto 20px;
-  display: block;
-  filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
-  animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0); }
-}
-
-.note-link {
-  display: inline-block;
-  padding: 12px 24px;
-  border: 1px solid $light-text;
-  margin-top: 2rem;
-  font-size: 1.1rem;
-  text-decoration: none;
-  transition: all 0.3s ease;
   
-  &:hover {
-    background-color: rgba(255,255,255,0.1);
-    transform: scale(1.05);
+  .note-link {
+    display: inline-block;
+    padding: 12px 24px;
+    border: 1px solid $light-text;
+    margin-top: 2rem;
+    font-size: 1.1rem;
   }
 }
 
@@ -136,23 +84,44 @@ body {
     margin: 0 5px;
     transition: all 0.3s ease;
     position: relative;
-    color: $light-text;
-    text-decoration: none !important;
+    color: $light-text; // 文字色を明るく保証
+    text-decoration: none !important; /* 下線を削除 */
     
     i {
       transition: transform 0.3s ease;
     }
     
     &:hover, &.active {
-      color: $accent-color;
+      color: #fff; // ホバー時に文字色を白に（より明るく）
       transform: translateY(-2px);
-      font-weight: 500;
+      text-shadow: 0 0 8px rgba(255,255,255,0.7); // 文字にグロー効果を追加
       
-      i {
-        transform: scale(1.1);
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 15%;
+        width: 70%;
+        height: 2px;
+        background-color: $light-text;
       }
     }
   }
+}
+
+/* ヒーローロゴのスタイル */
+.hero-logo {
+  max-width: 300px;
+  margin: 0 auto 20px;
+  display: block;
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
 }
 
 /* ハンバーガーメニューボタン */
@@ -189,6 +158,51 @@ body {
   }
 }
 
+
+/* 動画背景スタイル */
+.video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+  
+  video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%) scale(1.1); /* ズーム拡大 */
+    object-fit: cover;
+    filter: brightness(0.9); /* 明るさ調整 */
+  }
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3); /* オーバーレイを明るく */
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2; /* コンテンツを前面に */
+  text-align: center;
+  padding: 20px; /* モバイルでコンテンツが端に寄らないように */
+}
+
+
+
+
+
 /* タブレットサイズ (769px - 992px) */
 @media (max-width: 992px) {
   .site-nav {
@@ -198,18 +212,35 @@ body {
     }
   }
   
+  .video-background {
+      /* モバイルでも動画表示 */
+      video {
+        transform: translate(-50%, -50%) scale(1.5); /* モバイルでさらに拡大 */
+      }
+    }
+
+  .video-overlay {
+    background: rgba(0,0,0,0.2); /* モバイルではオーバーレイをさらに明るく */
+  }
+  
+  .hero {
+    height: auto;
+    min-height: 100vh;
+    padding: 100px 0; /* 上下にパディングを追加 */
+  }
+
   .hero h1 {
     font-size: 4rem;
   }
   
   .hero-logo {
-    max-width: 250px;
-  }
-  
-  .global-video-background video {
-    transform: translate(-50%, -50%) scale(1.3);
+    max-width: 200px;
+    margin-bottom: 30px;
   }
 }
+
+
+
 
 /* モバイルサイズ (768px以下) */
 @media (max-width: 768px) {
@@ -220,7 +251,7 @@ body {
     right: 15px;
   }
   
-  .site-nav {
+    .site-nav {
     position: fixed;
     top: 0;
     right: -100%;
@@ -231,18 +262,36 @@ body {
     transition: right 0.3s ease;
     z-index: 999;
     box-shadow: -5px 0 15px rgba(0,0,0,0.5);
-    overflow: hidden;
+    overflow: hidden; // メニュー全体からはみ出した部分を隠す
     
     &.active {
       right: 0;
     }
     
+    /* スクロール可能なコンテナ */
     .nav-links-container {
+      height: 100%; // 高さを親要素いっぱいに設定
+      overflow-y: auto; // 縦方向のスクロールを有効化
+      padding: 0 20px;
       display: flex;
       flex-direction: column;
-      height: 100%;
-      overflow-y: auto;
-      padding: 0 20px;
+      
+      /* スクロールバーのスタイル */
+      scrollbar-width: thin;
+      scrollbar-color: $accent-gray $dark-section;
+      
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: $dark-section;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background-color: $accent-gray;
+        border-radius: 3px;
+      }
     }
     
     .nav-link {
@@ -257,23 +306,38 @@ body {
       padding-left: 20px;
       
       &:hover, &.active {
-        background-color: rgba(255,255,255,0.05);
+        color: #fff; // モバイルでも文字色を明るく
+        background-color: rgba($light-text, 0.1); // 背景色をわずかに明るく
+        text-shadow: 0 0 5px rgba(255,255,255,0.5); // グロー効果
+
+        &::after {
+          // content: '';
+          // position: absolute;
+          // bottom: 0;
+          // left: 20px;
+          // width: calc(100% - 40px);
+          // height: 1px;
+          // display: block;
+          background-color: $accent-color; // モバイルの下線アニメーションも削除
+        }
       }
     }
   }
   
-  .video-overlay {
-    background: rgba(0,0,0,0.15);
-  }
-  
-  .hero {
-    height: auto;
-    min-height: 100vh;
-    padding: 100px 0;
-  }
-  
-  .hero-logo {
-    max-width: 200px;
+  /* メニューオープン時の背景 */
+  .nav-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 998;
+    
+    &.active {
+      display: block;
+    }
   }
   
   .hero h1 {
@@ -281,17 +345,8 @@ body {
     letter-spacing: 0.3rem;
   }
   
-  .global-video-background video {
-    transform: translate(-50%, -50%) scale(1.5);
-    filter: brightness(1.2);
-  }
-  
-  /* 低性能デバイス対策 */
-  .low-power-mode .global-video-background {
-    display: none;
-    background-image: url('{{ "/assets/images/video-poster.jpg" | relative_url }}');
-    background-size: cover;
-    background-position: center;
+  .hero-logo {
+    max-width: 200px;
   }
 }
 
@@ -333,18 +388,6 @@ body {
     border-radius: 3px;
   }
   
+  /* 最下部に余白を追加 */
   padding-bottom: 20px;
-}
-
-/* コンテンツセクションの基本スタイル */
-.about-section, .novels-container, .goods-section {
-  padding: 80px 0;
-  background-color: rgba(0,0,0,0.7);
-  backdrop-filter: blur(5px);
-  margin: 40px 0;
-  border-radius: 8px;
-  
-  .container {
-    max-width: 800px;
-  }
 }
