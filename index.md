@@ -25,3 +25,10 @@ title: 闇男 - 公式サイト
     </a>
   </div>
 </section>
+
+<section class="about-section">
+  <div class="container">
+    <h2>闇の世界へようこそ</h2>
+    <p>このサイトでは、闇男がnoteに投稿した小説の一覧や、今後のグッズ販売情報などをお届けします。</p>
+  </div>
+</section>
