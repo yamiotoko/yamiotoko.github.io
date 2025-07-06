@@ -251,18 +251,19 @@ body {
     right: 15px;
   }
   
-    .site-nav {
+  .site-nav {
     position: fixed;
     top: 0;
     right: -100%;
     width: 280px;
-    height: 100vh;
+    height: 100vh; /* 追加 */
     background-color: rgba(17,17,17,0.98);
-    padding: 70px 0 20px;
+    padding: 70px 0 20px; /* 調整 */
     transition: right 0.3s ease;
     z-index: 999;
     box-shadow: -5px 0 15px rgba(0,0,0,0.5);
-    overflow: hidden; // メニュー全体からはみ出した部分を隠す
+    overflow: hidden;
+    box-sizing: border-box; /* 追加 */
     
     &.active {
       right: 0;
@@ -270,11 +271,12 @@ body {
     
     /* スクロール可能なコンテナ */
     .nav-links-container {
-      height: 100%; // 高さを親要素いっぱいに設定
-      overflow-y: auto; // 縦方向のスクロールを有効化
+      height: calc(100% - 0px); /* 修正 */
+      overflow-y: auto;
       padding: 0 20px;
       display: flex;
       flex-direction: column;
+      padding-bottom: 30px; /* 追加 */
       
       /* スクロールバーのスタイル */
       scrollbar-width: thin;
