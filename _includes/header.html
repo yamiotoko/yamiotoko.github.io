@@ -1,21 +1,20 @@
 <header class="site-header">
   <div class="container">
-
     <!-- ハンバーガーメニューボタン -->
-    <button class="hamburger" id="hamburger-menu">
+    <button class="hamburger" id="hamburger-menu" aria-label="メニューを開く">
       <span class="hamburger-line"></span>
       <span class="hamburger-line"></span>
       <span class="hamburger-line"></span>
     </button>
     
-    
-    <!-- ナビゲーション -->
-    <nav class="site-nav">
+    <!-- ナビゲーション - id="main-nav"を追加 -->
+    <nav class="site-nav" id="main-nav">
       {% for item in site.data.navigation %}
         <a href="{{ item.url }}" 
           {% if item.external %}target="_blank"{% endif %}
           {% if item.new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
           class="nav-link {% if page.url == item.url %}active{% endif %}">
+          {% if item.icon %}<i class="{{ item.icon }}"></i>{% endif %}
           {{ item.name }}
         </a>
       {% endfor %}

@@ -20,12 +20,13 @@ body {
   padding: 0 20px;
 }
 
-
 /* ヘッダー全体調整 */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 1000;
+  background-color: rgba(0,0,0,0.8);
+  backdrop-filter: blur(5px);
 }
 
 // ヒーローセクション
@@ -63,14 +64,14 @@ body {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 15px 0;
   
   .nav-link {
     flex: 1;
-    min-width: 80px; /* 最小幅を設定 */
-    max-width: 200px; /* 最大幅を設定 */
+    min-width: 80px;
+    max-width: 200px;
     text-align: center;
-    padding: 10px 5px; /* パディング調整 */
+    padding: 10px 5px;
     margin: 0 5px;
     transition: all 0.3s ease;
     position: relative;
@@ -90,7 +91,6 @@ body {
     }
   }
 }
-
 
 /* ヒーローロゴのスタイル */
 .hero-logo {
@@ -130,45 +130,88 @@ body {
 }
 
 
-
+/* ハンバーガーアニメーション */
+.hamburger.active {
+  .hamburger-line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  
+  .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .hamburger-line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}
 
 
 
 
 
 /* モバイル対応 */
-/* モバイルサイズ */
-@media (max-width: 768px) {
+/* タブレットサイズ (769px - 992px) */
+@media (max-width: 992px) {
+  .site-nav {
+    .nav-link {
+      font-size: 0.9rem;
+      padding: 8px 0;
+    }
+  }
+  
+  .hero h1 {
+    font-size: 4rem;
+  }
+  
+  .hero-logo {
+    max-width: 250px;
+  }
+}
 
+/* モバイルサイズ (768px以下) */
+@media (max-width: 768px) {
   .hamburger {
     display: block;
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 15px;
+    right: 15px;
   }
   
   .site-nav {
     position: fixed;
     top: 0;
-    right: -100%; /* 画面外に隠す */
-    width: 80%;
+    right: -100%;
+    width: 280px; /* スライドメニューの幅 */
     height: 100vh;
-    background-color: rgba(0,0,0,0.95);
+    background-color: rgba(17,17,17,0.98);
     flex-direction: column;
-    padding: 80px 20px 20px;
+    padding: 70px 20px 20px;
     transition: right 0.3s ease;
     z-index: 999;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.5);
     
     &.active {
-      right: 0; /* 表示 */
+      right: 0;
     }
     
     .nav-link {
       width: 100%;
-      margin: 15px 0;
-      padding: 15px 0;
-      font-size: 1.2rem;
+      min-width: auto;
+      max-width: none;
+      margin: 10px 0;
+      padding: 12px 0;
+      font-size: 1.1rem;
       border-bottom: 1px solid $border-color;
+      text-align: left;
+      padding-left: 20px;
+      
+      &:hover, &.active {
+        background-color: rgba(255,255,255,0.05);
+        
+        &::after {
+          display: none;
+        }
+      }
     }
   }
   
@@ -188,26 +231,27 @@ body {
     }
   }
   
+  .hero h1 {
+    font-size: 3rem;
+    letter-spacing: 0.3rem;
+  }
+  
   .hero-logo {
     max-width: 200px;
   }
 }
 
-
-
-
-
-/* ハンバーガーアニメーション */
-.hamburger.active {
-  .hamburger-line:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
+/* 小さなモバイルデバイス (480px以下) */
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 2.5rem;
   }
   
-  .hamburger-line:nth-child(2) {
-    opacity: 0;
+  .hero-logo {
+    max-width: 180px;
   }
   
-  .hamburger-line:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
+  .site-nav {
+    width: 250px;
   }
 }
