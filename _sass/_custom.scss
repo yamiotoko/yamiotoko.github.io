@@ -63,6 +63,15 @@ body {
     border: 1px solid $light-text;
     margin-top: 2rem;
     font-size: 1.1rem;
+    color: $accent-color !important; // 文字色をアクセントカラーに変更
+    text-decoration: none !important; // 下線を完全に削除
+    transition: all 0.3s ease;
+    
+    // ホバーエフェクトを追加
+    &:hover {
+      background-color: rgba($accent-color, 0.1);
+      border-color: $accent-color;
+    }
   }
 }
 
