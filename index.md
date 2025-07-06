@@ -4,6 +4,12 @@ title: 闇男 - 公式サイト
 ---
 
 <section class="hero">
+  <!-- ロゴを追加 -->
+  <img src="{{ '/assets/images/logo.png' | relative_url }}" 
+       alt="闇男ロゴ" 
+       class="hero-logo">
+
+  <!-- タイトル -->
   <h1>闇男</h1>
   <p>日常に潜む闇を描く小説家</p>
   <a href="https://note.com/yamiotoko" target="_blank" class="note-link">

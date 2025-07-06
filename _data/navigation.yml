@@ -1,11 +1,20 @@
 - name: ホーム
   url: /
+  icon: fas fa-home
+  
 - name: 小説一覧
   url: /novels.html
+  icon: fas fa-book
+
 - name: 闇グッズ
   url: /goods.html
+  icon: fas fa-shopping-cart
+
 - name: お知らせ
   url: /news.html
+  icon: fas fa-bell
+
 - name: note
   url: https://note.com/yamiotoko
   external: true
+  icon: fab fa-note

@@ -1,26 +1,14 @@
 <header class="site-header">
   <div class="container">
-    <!-- ロゴコンテナ追加 -->
-    <div class="header-logo-container">
-      <img src="{{ '/assets/images/logo.png' | relative_url }}" 
-           alt="闇男ロゴ" 
-           class="main-logo">
-    </div>
-
-    <!-- サイトタイトル -->
-    <a href="{{ '/' | relative_url }}" class="site-title">
-      闇男
-    </a>
     
-
-
-
+    
     <!-- ナビゲーション -->
     <nav class="site-nav">
       {% for item in site.data.navigation %}
-        <a href="{{ item.url }}" 
-           {% if item.external %}target="_blank"{% endif %}
-           class="nav-link {% if page.url == item.url %}active{% endif %}">
+        <a href="{{ item.url }}" class="nav-link">
+          {% if item.icon %}
+            <i class="{{ item.icon }}"></i>
+          {% endif %}
           {{ item.name }}
         </a>
       {% endfor %}

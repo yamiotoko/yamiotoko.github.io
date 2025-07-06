@@ -23,8 +23,9 @@ body {
 
 /* ヘッダー全体調整 */
 .site-header {
-  position: relative;
-  padding-top: 160px; /* ロゴスペース確保 */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 // ヒーローセクション
@@ -55,45 +56,54 @@ body {
 }
 
 
-/* メインロゴコンテナ */
-.header-logo-container {
-  position: absolute;
-  top: 20px; /* 上部からの距離 */
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
-  text-align: center;
+/* ナビゲーションの中央揃えと均等幅 */
+.site-nav {
+  display: flex;
+  justify-content: center; /* 中央揃え */
   width: 100%;
+  max-width: 1200px; /* 最大幅制限 */
+  margin: 0 auto;
+  padding: 20px 0;
+
+  /* ナビゲーションに背景を追加 */
+  background-color: rgba(0,0,0,0.7);
+  backdrop-filter: blur(5px);
+  border-bottom: 1px solid $border-color;
   
-  /* ロゴサイズ調整 */
-  .main-logo {
-    max-height: 120px; /* 適切なサイズに調整 */
-    width: auto;
-    margin: 0 auto;
-    display: block;
+
+  .nav-link {
+    flex: 1; /* 均等な幅 */
+    text-align: center; /* 中央揃え */
+    padding: 10px 0;
+    margin: 0 5px; /* アイテム間の余白 */
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
     
-    /* ダークモード時の調整（必要に応じて） */
-    .dark-mode & {
-      filter: invert(0.9);
+    &:hover, &.active {
+      border-bottom: 1px solid $light-text;
+      transform: translateY(-2px);
     }
   }
 }
 
-/* サイトタイトル位置調整 */
-.site-title {
-  margin-top: 140px; /* ロゴの高さに合わせて調整 */
+/* ヒーローロゴのスタイル */
+.hero-logo {
+  max-width: 300px; /* 適切なサイズに調整 */
+  margin: 0 auto 20px; /* 中央揃え */
   display: block;
-  text-align: center;
-  font-size: 3rem; /* タイトルサイズ */
-  z-index: 99;
-  position: relative;
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+  
+  /* アニメーション効果 */
+  animation: float 3s ease-in-out infinite;
 }
 
-/* ヘッダー全体調整 */
-.site-header {
-  position: relative;
-  padding-top: 160px; /* ロゴスペース確保 */
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
 }
+
+
 
 
 
@@ -103,32 +113,34 @@ body {
 
 
 /* モバイル対応 */
-@media (max-width: 768px) {
-  .header-logo-container {
-    top: 10px;
-    
-    .main-logo {
-      max-height: 80px;
+/* タブレットサイズ */
+@media (max-width: 992px) {
+  .site-nav {
+    .nav-link {
+      font-size: 0.9rem;
+      padding: 8px 0;
     }
   }
   
-  .site-title {
-    margin-top: 100px;
-    font-size: 2rem;
-  }
-  
-  .site-header {
-    padding-top: 120px;
+  .hero-logo {
+    max-width: 250px;
   }
 }
 
-@media (max-width: 480px) {
-  .header-logo-container .main-logo {
-    max-height: 60px;
+/* モバイルサイズ */
+@media (max-width: 768px) {
+  .site-nav {
+    flex-direction: column; /* 縦並び */
+    
+    .nav-link {
+      width: 100%;
+      margin: 5px 0;
+      padding: 12px 0;
+      border: 1px solid $border-color;
+    }
   }
   
-  .site-title {
-    margin-top: 80px;
-    font-size: 1.8rem;
+  .hero-logo {
+    max-width: 200px;
   }
 }
