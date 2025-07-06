@@ -7,7 +7,7 @@ title: 闇男 - 公式サイト
 
   <!-- 動画背景 -->
   <div class="video-background">
-    <video autoplay muted loop playsinline>
+    <video autoplay muted loop playsinline poster="{{ '/assets/images/video-poster.jpg' | relative_url }}">
       <source src="{{ '/assets/videos/background.mp4' | relative_url }}" type="video/mp4">
     </video>
     <div class="video-overlay"></div>
