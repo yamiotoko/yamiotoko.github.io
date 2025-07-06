@@ -374,7 +374,13 @@ body {
   }
 
   .hero h1 {
-    font-size: 4rem;
+    font-size: 3rem;
+    letter-spacing: 0.1rem; /* 字間を狭める */
+    white-space: nowrap; /* 強制1行表示 */
+    padding: 0 20px; /* 左右パディングを追加 */
+    overflow: hidden; /* はみ出し防止 */
+    text-overflow: ellipsis; /* 長い場合に...表示 */
+    max-width: 100%; /* 親要素幅に制限 */
   }
   
   .hero-logo {
