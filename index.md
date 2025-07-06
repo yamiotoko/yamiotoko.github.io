@@ -4,17 +4,29 @@ title: 闇男 - 公式サイト
 ---
 
 <section class="hero">
-  <!-- ロゴを追加 -->
-  <img src="{{ '/assets/images/logo.png' | relative_url }}" 
-       alt="闇男ロゴ" 
-       class="hero-logo">
 
-  <!-- タイトル -->
-  <h1>闇男</h1>
-  <p>日常に潜む闇を描く小説家</p>
-  <a href="https://note.com/yamiotoko" target="_blank" class="note-link">
-    noteで作品を読む
-  </a>
+  <!-- 動画背景 -->
+  <div class="video-background">
+    <video autoplay muted loop playsinline poster="{{ '/assets/images/video-poster.jpg' | relative_url }}">
+      <source src="{{ '/assets/videos/background.webm' | relative_url }}" type="video/webm">
+      <source src="{{ '/assets/videos/background.mp4' | relative_url }}" type="video/mp4">
+      お使いのブラウザは動画をサポートしていません。
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+
+  <!-- コンテンツ -->
+  <div class="hero-content">
+    <img src="{{ '/assets/images/logo.png' | relative_url }}" 
+         alt="闇男ロゴ" 
+         class="hero-logo">
+    <h1>闇男</h1>
+    <p>日常に潜む闇を描く小説家</p>
+    <a href="https://note.com/yamiotoko" target="_blank" class="note-link">
+      noteで作品を読む
+    </a>
+  </div>
 </section>
 
 <section class="about-section">
