@@ -1,9 +1,21 @@
 <header class="site-header">
   <div class="container">
+    <!-- ロゴコンテナ追加 -->
+    <div class="header-logo-container">
+      <img src="{{ '/assets/images/logo.png' | relative_url }}" 
+           alt="闇男ロゴ" 
+           class="main-logo">
+    </div>
+
+    <!-- サイトタイトル -->
     <a href="{{ '/' | relative_url }}" class="site-title">
       闇男
     </a>
     
+
+
+
+    <!-- ナビゲーション -->
     <nav class="site-nav">
       {% for item in site.data.navigation %}
         <a href="{{ item.url }}" 
@@ -13,10 +25,5 @@
         </a>
       {% endfor %}
     </nav>
-    
-    <button class="dark-mode-toggle">
-      <span class="dark-icon">闇</span>
-      <span class="light-icon">光</span>
-    </button>
   </div>
 </header>
