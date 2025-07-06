@@ -4,6 +4,7 @@ $dark-section: #111;
 $light-text: #fff;
 $accent-gray: #aaa;
 $border-color: #333;
+$accent-color: #f0c050; // アクセントカラーを追加
 
 // 基本スタイル
 body {
@@ -74,9 +75,17 @@ body {
     margin: 0 5px;
     transition: all 0.3s ease;
     position: relative;
+    color: $light-text; // 文字色を明るく保証
+    text-decoration: none !important; /* 下線を削除 */
+    
+    i {
+      transition: transform 0.3s ease;
+    }
     
     &:hover, &.active {
+      color: #fff; // ホバー時に文字色を白に（より明るく）
       transform: translateY(-2px);
+      text-shadow: 0 0 8px rgba(255,255,255,0.7); // 文字にグロー効果を追加
       
       &::after {
         content: '';
@@ -158,6 +167,9 @@ body {
   }
 }
 
+
+
+
 /* モバイルサイズ (768px以下) */
 @media (max-width: 768px) {
   .hamburger {
@@ -167,7 +179,7 @@ body {
     right: 15px;
   }
   
-  .site-nav {
+    .site-nav {
     position: fixed;
     top: 0;
     right: -100%;
@@ -178,19 +190,36 @@ body {
     transition: right 0.3s ease;
     z-index: 999;
     box-shadow: -5px 0 15px rgba(0,0,0,0.5);
-    overflow: hidden;
+    overflow: hidden; // メニュー全体からはみ出した部分を隠す
     
     &.active {
       right: 0;
     }
     
-    /* ナビゲーションリンクコンテナ */
+    /* スクロール可能なコンテナ */
     .nav-links-container {
-      display: flex;
-      flex-direction: column; /* 縦並びに変更 */
-      height: 100%;
-      overflow-y: auto;
+      height: 100%; // 高さを親要素いっぱいに設定
+      overflow-y: auto; // 縦方向のスクロールを有効化
       padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      
+      /* スクロールバーのスタイル */
+      scrollbar-width: thin;
+      scrollbar-color: $accent-gray $dark-section;
+      
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: $dark-section;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background-color: $accent-gray;
+        border-radius: 3px;
+      }
     }
     
     .nav-link {
@@ -205,10 +234,19 @@ body {
       padding-left: 20px;
       
       &:hover, &.active {
-        background-color: rgba(255,255,255,0.05);
-        
+        color: #fff; // モバイルでも文字色を明るく
+        background-color: rgba($light-text, 0.1); // 背景色をわずかに明るく
+        text-shadow: 0 0 5px rgba(255,255,255,0.5); // グロー効果
+
         &::after {
-          display: none;
+          // content: '';
+          // position: absolute;
+          // bottom: 0;
+          // left: 20px;
+          // width: calc(100% - 40px);
+          // height: 1px;
+          // display: block;
+          background-color: $accent-color; // モバイルの下線アニメーションも削除
         }
       }
     }
