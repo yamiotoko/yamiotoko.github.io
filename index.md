@@ -6,7 +6,7 @@ title: 闇男 - 公式サイト
 <section class="hero">
   <!-- 動画背景 -->
   <div class="video-background">
-    <video autoplay muted loop playsinline poster="{{ '/assets/images/video-poster.jpg' | relative_url }}">
+    <video autoplay muted playsinline>
       <source src="{{ '/assets/videos/background.webm' | relative_url }}" type="video/webm">
       <source src="{{ '/assets/videos/background.mp4' | relative_url }}" type="video/mp4">
     </video>
