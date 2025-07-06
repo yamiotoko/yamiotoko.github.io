@@ -8,13 +8,15 @@ title: お知らせ
   
   <div class="news-list">
     {% for post in site.posts %}
-      <article class="news-item">
-        <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-        <time datetime="{{ post.date | date_to_xmlschema }}">
-          {{ post.date | date: "%Y年%m月%d日" }}
-        </time>
-        <div>{{ post.excerpt }}</div>
-      </article>
+      <a href="{{ post.url }}" class="news-item-link">
+        <article class="news-item">
+          <h3>{{ post.title }}</h3>
+          <time datetime="{{ post.date | date_to_xmlschema }}">
+            {{ post.date | date: "%Y年%m月%d日" }}
+          </time>
+          <div>{{ post.excerpt }}</div>
+        </article>
+      </a>
     {% endfor %}
   </div>
 </div>

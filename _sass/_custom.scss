@@ -32,13 +32,6 @@ body {
 
 // ヒーローセクション
 .hero {
-  // height: 100vh;
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-  // align-items: center;
-  // text-align: center;
-  // background: radial-gradient(ellipse at center, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%);
   position: relative;
   height: 100vh;
   display: flex;
@@ -208,6 +201,148 @@ body {
   padding: 20px; /* モバイルでコンテンツが端に寄らないように */
 }
 
+/* ノート記事フィードスタイル */
+.novels-container {
+  padding: 60px 0 80px; /* 下パディングを追加 */
+  background-color: $dark-section;
+}
+
+.note-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.note-item {
+  position: relative; // 追加
+  background: rgba(30, 30, 30, 0.8);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid $border-color;
+  
+  // ホバーエフェクトは.note-item-linkに移動
+}
+
+.note-item-link {
+  display: block; // 全体をクリック可能に
+  color: inherit; // 色の継承
+  text-decoration: none !important; // 下線削除
+  
+  &:hover {
+    .note-item {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      border-color: $accent-color;
+    }
+    
+    .note-title {
+      color: $accent-color !important;
+      text-shadow: 0 0 5px rgba($accent-color, 0.3);
+    }
+  }
+}
+
+.note-title {
+  color: $light-text !important;
+  // text-decoration: none; 削除（親要素で設定済み）
+  font-size: 1.2rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.note-thumbnail {
+  img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.note-content {
+  padding: 20px;
+  
+  time {
+    display: block;
+    color: $accent-gray;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+}
+
+.note-description {
+  color: $accent-gray;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+
+
+/* お知らせページスタイル */
+.news-list {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding-bottom: 80px; /* フッターとの間に十分なスペースを追加 */
+}
+
+.news-item-link {
+  display: block;
+  color: inherit;
+  text-decoration: none !important;
+  
+  &:hover {
+    .news-item {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      border-color: $accent-color;
+    }
+    
+    h3 {
+      color: $accent-color !important;
+      text-shadow: 0 0 5px rgba($accent-color, 0.3);
+    }
+  }
+}
+
+.news-item {
+  background: rgba(30, 30, 30, 0.8);
+  border-radius: 8px;
+  padding: 25px;
+  height: 100%;
+  border: 1px solid $border-color;
+  transition: all 0.3s ease;
+  
+  h3 {
+    margin: 0 0 10px 0;
+    color: $light-text !important;
+    font-size: 1.3rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  time {
+    color: $accent-gray;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  div {
+    color: $accent-gray;
+    line-height: 1.6;
+  }
+}
+
+@keyframes underline-expand {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+
 
 
 
@@ -245,6 +380,36 @@ body {
   .hero-logo {
     max-width: 200px;
     margin-bottom: 30px;
+  }
+
+
+  // ノート記事フィードのスタイル調整
+  .note-items {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .note-item {
+    &:hover {
+      transform: none;
+    }
+  }
+
+
+  /* お知らせページスタイル */
+  .news-list {
+    grid-template-columns: 1fr;
+    gap: 60px; /* 記事間のスペースを大きくする */
+    padding-bottom: 60px;
+  }
+
+  .news-item {
+    margin-bottom: 0; /* グリッドgapを使うのでmarginは不要 */
+    padding: 20px; /* パディングを調整 */
+  }
+  
+  .news-item-link:hover .news-item {
+    transform: none; /* モバイルではホバーエフェクトを無効化 */
   }
 }
 
