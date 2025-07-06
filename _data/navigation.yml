@@ -17,4 +17,5 @@
 - name: note
   url: https://note.com/yamiotoko
   external: true
+  new_tab: true  # 新しいタブで開くフラグを追加
   icon: fab fa-note

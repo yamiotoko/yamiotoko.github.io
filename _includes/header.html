@@ -1,14 +1,21 @@
 <header class="site-header">
   <div class="container">
+
+    <!-- ハンバーガーメニューボタン -->
+    <button class="hamburger" id="hamburger-menu">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
     
     
     <!-- ナビゲーション -->
     <nav class="site-nav">
       {% for item in site.data.navigation %}
-        <a href="{{ item.url }}" class="nav-link">
-          {% if item.icon %}
-            <i class="{{ item.icon }}"></i>
-          {% endif %}
+        <a href="{{ item.url }}" 
+          {% if item.external %}target="_blank"{% endif %}
+          {% if item.new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+          class="nav-link {% if page.url == item.url %}active{% endif %}">
           {{ item.name }}
         </a>
       {% endfor %}

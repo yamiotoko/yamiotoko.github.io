@@ -59,32 +59,38 @@ body {
 /* ナビゲーションの中央揃えと均等幅 */
 .site-nav {
   display: flex;
-  justify-content: center; /* 中央揃え */
+  justify-content: center;
   width: 100%;
-  max-width: 1200px; /* 最大幅制限 */
+  max-width: 1200px;
   margin: 0 auto;
   padding: 20px 0;
-
-  /* ナビゲーションに背景を追加 */
-  background-color: rgba(0,0,0,0.7);
-  backdrop-filter: blur(5px);
-  border-bottom: 1px solid $border-color;
   
-
   .nav-link {
-    flex: 1; /* 均等な幅 */
-    text-align: center; /* 中央揃え */
-    padding: 10px 0;
-    margin: 0 5px; /* アイテム間の余白 */
-    border-bottom: 1px solid transparent;
+    flex: 1;
+    min-width: 80px; /* 最小幅を設定 */
+    max-width: 200px; /* 最大幅を設定 */
+    text-align: center;
+    padding: 10px 5px; /* パディング調整 */
+    margin: 0 5px;
     transition: all 0.3s ease;
+    position: relative;
     
     &:hover, &.active {
-      border-bottom: 1px solid $light-text;
       transform: translateY(-2px);
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 15%;
+        width: 70%;
+        height: 2px;
+        background-color: $light-text;
+      }
     }
   }
 }
+
 
 /* ヒーローロゴのスタイル */
 .hero-logo {
@@ -104,6 +110,24 @@ body {
 }
 
 
+/* ハンバーガーメニューボタン */
+.hamburger {
+  display: none; /* デスクトップでは非表示 */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 1000;
+  
+  .hamburger-line {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: $light-text;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+  }
+}
 
 
 
@@ -113,34 +137,77 @@ body {
 
 
 /* モバイル対応 */
-/* タブレットサイズ */
+/* モバイルサイズ */
 @media (max-width: 992px) {
-  .site-nav {
-    .nav-link {
-      font-size: 0.9rem;
-      padding: 8px 0;
-    }
+
+  .hamburger {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 20px;
   }
   
-  .hero-logo {
-    max-width: 250px;
-  }
-}
-
-/* モバイルサイズ */
-@media (max-width: 768px) {
   .site-nav {
-    flex-direction: column; /* 縦並び */
+    position: fixed;
+    top: 0;
+    right: -100%; /* 画面外に隠す */
+    width: 80%;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.95);
+    flex-direction: column;
+    padding: 80px 20px 20px;
+    transition: right 0.3s ease;
+    z-index: 999;
+    
+    &.active {
+      right: 0; /* 表示 */
+    }
     
     .nav-link {
       width: 100%;
-      margin: 5px 0;
-      padding: 12px 0;
-      border: 1px solid $border-color;
+      margin: 15px 0;
+      padding: 15px 0;
+      font-size: 1.2rem;
+      border-bottom: 1px solid $border-color;
+    }
+  }
+  
+  /* メニューオープン時の背景 */
+  .nav-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 998;
+    
+    &.active {
+      display: block;
     }
   }
   
   .hero-logo {
     max-width: 200px;
+  }
+}
+
+
+
+
+
+/* ハンバーガーアニメーション */
+.hamburger.active {
+  .hamburger-line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  
+  .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .hamburger-line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
   }
 }
