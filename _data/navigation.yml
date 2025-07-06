@@ -1,0 +1,11 @@
+- name: ホーム
+  url: /
+- name: 小説一覧
+  url: /novels.html
+- name: 闇グッズ
+  url: /goods.html
+- name: お知らせ
+  url: /news.html
+- name: note
+  url: https://note.com/yamiotoko
+  external: true

@@ -1,0 +1,22 @@
+<header class="site-header">
+  <div class="container">
+    <a href="{{ '/' | relative_url }}" class="site-title">
+      闇男
+    </a>
+    
+    <nav class="site-nav">
+      {% for item in site.data.navigation %}
+        <a href="{{ item.url }}" 
+           {% if item.external %}target="_blank"{% endif %}
+           class="nav-link {% if page.url == item.url %}active{% endif %}">
+          {{ item.name }}
+        </a>
+      {% endfor %}
+    </nav>
+    
+    <button class="dark-mode-toggle">
+      <span class="dark-icon">闇</span>
+      <span class="light-icon">光</span>
+    </button>
+  </div>
+</header>

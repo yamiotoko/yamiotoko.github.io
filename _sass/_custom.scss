@@ -1,0 +1,57 @@
+// 変数
+$dark-bg: #000;
+$dark-section: #111;
+$light-text: #fff;
+$accent-gray: #aaa;
+$border-color: #333;
+
+// 基本スタイル
+body {
+  background-color: $dark-bg;
+  color: $light-text;
+  font-family: 'Noto Sans JP', sans-serif;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+// ヘッダースタイル
+.site-header {
+  padding: 20px 0;
+  border-bottom: 1px solid $border-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// ヒーローセクション
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%);
+  
+  h1 {
+    font-size: 5rem;
+    letter-spacing: 0.5rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .note-link {
+    display: inline-block;
+    padding: 12px 24px;
+    border: 1px solid $light-text;
+    margin-top: 2rem;
+    font-size: 1.1rem;
+  }
+}
