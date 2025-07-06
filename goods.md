@@ -6,10 +6,9 @@ title: 闇グッズ
 <section class="goods-section">
   <div class="container">
     <h2>闇グッズ</h2>
-    <p>闇の世界を具現化したグッズを準備中</p>
-    
+    <p>闇の世界を具現化したグッズを計画中</p>
     <div class="coming-soon">
-      <p>闇男作品の世界観を表現したグッズが近日発売予定</p>
+      <p>闇男作品の世界観を表現したグッズが発売されるかも！？</p>
       <div class="countdown">
         <div>
           <span id="days">00</span>
