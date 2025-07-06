@@ -4,16 +4,15 @@ title: 闇男 - 公式サイト
 ---
 
 <section class="hero">
-
   <!-- 動画背景 -->
   <div class="video-background">
-    <video autoplay muted loop playsinline>
+    <video autoplay muted loop playsinline poster="{{ '/assets/images/video-poster.jpg' | relative_url }}">
+      <source src="{{ '/assets/videos/background.webm' | relative_url }}" type="video/webm">
       <source src="{{ '/assets/videos/background.mp4' | relative_url }}" type="video/mp4">
     </video>
     <div class="video-overlay"></div>
   </div>
-
-
+  
   <!-- コンテンツ -->
   <div class="hero-content">
     <img src="{{ '/assets/images/logo.png' | relative_url }}" 
@@ -24,12 +23,5 @@ title: 闇男 - 公式サイト
     <a href="https://note.com/yamiotoko" target="_blank" class="note-link">
       noteで作品を読む
     </a>
-  </div>
-</section>
-
-<section class="about-section">
-  <div class="container">
-    <h2>闇の世界へようこそ</h2>
-    <p>このサイトでは、闇男がnoteに投稿した小説の一覧や、今後のグッズ販売情報などをお届けします。</p>
   </div>
 </section>
