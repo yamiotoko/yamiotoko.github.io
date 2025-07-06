@@ -3,8 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const hamburger = document.getElementById('hamburger-menu');
   const navMenu = document.getElementById('main-nav');
   const navOverlay = document.createElement('div');
+  const body = document.body;
   navOverlay.className = 'nav-overlay';
-  document.body.appendChild(navOverlay);
+  body.appendChild(navOverlay);
   
   // 要素が正しく取得できているか確認
   if (hamburger && navMenu) {
@@ -16,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // スクロールロックと位置リセット
       if (navMenu.classList.contains('active')) {
-        document.body.style.overflow = 'hidden';
+        body.classList.add('nav-active'); // CSSクラスで制御
         hamburger.setAttribute('aria-expanded', 'true');
         hamburger.setAttribute('aria-label', 'メニューを閉じる');
         
@@ -24,10 +25,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.querySelector('.nav-links-container');
         if (container) container.scrollTop = 0;
       } else {
-        document.body.style.overflow = '';
+        body.classList.remove('nav-active');
         hamburger.setAttribute('aria-expanded', 'false');
         hamburger.setAttribute('aria-label', 'メニューを開く');
       }
+    });
+
+    // オーバーレイクリックでメニュー閉じる（追加推奨）
+    navOverlay.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      navMenu.classList.remove('active');
+      navOverlay.classList.remove('active');
+      body.classList.remove('nav-active');
     });
   } else {
     console.error('ハンバーガーメニュー要素が見つかりません');
