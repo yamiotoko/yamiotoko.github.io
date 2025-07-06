@@ -8,14 +8,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body class="{% if site.dark_mode %}dark-mode{% endif %}">
+  <!-- 全ページ共通の動画背景 -->
+  <div class="global-video-background">
+    <video autoplay muted loop playsinline poster="{{ '/assets/images/video-poster.jpg' | relative_url }}">
+      <source src="{{ '/assets/videos/background.webm' | relative_url }}" type="video/webm">
+      <source src="{{ '/assets/videos/background.mp4' | relative_url }}" type="video/mp4">
+      お使いのブラウザは動画をサポートしていません。
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+  
   {% include header.html %}
   
-  <main class="container">
-    {{ content }}
+  <main class="page-content">
+    <div class="container">
+      {{ content }}
+    </div>
   </main>
   
   {% include footer.html %}
   
   <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/video-background.js' | relative_url }}"></script>
 </body>
 </html>
