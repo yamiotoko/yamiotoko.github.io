@@ -7,17 +7,19 @@
       <span class="hamburger-line"></span>
     </button>
     
-    <!-- ナビゲーション - id="main-nav"を追加 -->
+    <!-- ナビゲーション -->
     <nav class="site-nav" id="main-nav">
-      {% for item in site.data.navigation %}
-        <a href="{{ item.url }}" 
-          {% if item.external %}target="_blank"{% endif %}
-          {% if item.new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
-          class="nav-link {% if page.url == item.url %}active{% endif %}">
-          {% if item.icon %}<i class="{{ item.icon }}"></i>{% endif %}
-          {{ item.name }}
-        </a>
-      {% endfor %}
+      <div class="nav-links-container">
+        {% for item in site.data.navigation %}
+          <a href="{{ item.url }}" 
+            {% if item.external %}target="_blank"{% endif %}
+            {% if item.new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+            class="nav-link {% if page.url == item.url %}active{% endif %}">
+            {% if item.icon %}<i class="{{ item.icon }}"></i>{% endif %}
+            {{ item.name }}
+          </a>
+        {% endfor %}
+      </div>
     </nav>
   </div>
 </header>
