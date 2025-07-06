@@ -6,6 +6,15 @@ $accent-gray: #aaa;
 $border-color: #333;
 $accent-color: #f0c050; // アクセントカラーを追加
 
+
+// 基本スタイルに追加
+html {
+  overflow-y: scroll; // 常に縦スクロールバーを表示して幅を固定
+  overflow-x: hidden; // 横スクロールを完全に禁止
+  width: 100%;
+  position: relative;
+}
+
 // 基本スタイル
 body {
   background-color: $dark-bg;
@@ -14,7 +23,7 @@ body {
   margin: 0;
   line-height: 1.6;
   overflow-x: hidden; // 横スクロールを禁止
-  width: 100%;
+  width: 100vw; // ビューポート幅を明示的に指定
   position: relative;
 }
 
@@ -208,7 +217,9 @@ body {
 
 /* ノート記事フィードスタイル */
 .novels-container {
-  padding: 60px 0 80px; /* 下パディングを追加 */
+  width: 100%;
+  padding: 60px 20px 80px; // 左右パディングを追加
+  box-sizing: border-box;
   background-color: $dark-section;
 }
 
@@ -216,7 +227,8 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 30px;
-  margin-top: 40px;
+  width: calc(100% - 40px); // パディング分を考慮
+  margin: 40px auto 0;
 }
 
 .note-item {
@@ -292,6 +304,8 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
   padding-bottom: 80px; /* フッターとの間に十分なスペースを追加 */
+  width: calc(100% - 40px);
+  margin: 40px auto 0;
 }
 
 .news-item-link {
