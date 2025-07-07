@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 <title>{{ page.title | default: site.title }}</title>
 <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
@@ -8,7 +8,3 @@
 <link rel="shortcut icon" href="{{ '/assets/images/favicon.ico' | relative_url }}" />
 <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/images/apple-touch-icon.png' | relative_url }}" />
 <link rel="manifest" href="{{ '/assets/images/site.webmanifest' | relative_url }}" />
-
-<!-- キャッシュバスティング（推奨） -->
-{% assign cache_version = site.time | date: '%Y%m%d%H%M' %}
-<link rel="stylesheet" href="{{ '/assets/css/main.css?v=' | append: cache_version | relative_url }}">

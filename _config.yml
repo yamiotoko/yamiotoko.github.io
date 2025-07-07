@@ -33,8 +33,6 @@ plugins:
   - jekyll-feed
   # - jekyll-sitemap  # サイトマップ生成
 
-include:
-  - favicon.ico
 
 # Exclude from processing.
 # The following items will not be processed, by default.
