@@ -18,7 +18,7 @@ title: 闇男 - 公式サイト
          alt="闇男ロゴ" 
          class="hero-logo">
     <h1>闇男</h1>
-    <p>日常に潜む闇を描く小説家</p>
+    <p>日常の裏に潜む異常を描く小説家</p>
     <a href="https://note.com/yamiotoko" target="_blank" class="note-link">
       noteで作品を読む
     </a>
