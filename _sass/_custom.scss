@@ -277,13 +277,25 @@ body.nav-active {
   transition: color 0.3s ease;
 }
 
-.note-thumbnail {
-  img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    display: block;
-  }
+/* ローディング表示 */
+.loading {
+  text-align: center;
+  padding: 30px;
+  color: $accent-gray;
+  font-style: italic;
+}
+
+/* サムネイル画像のスタイル調整 */
+.note-thumbnail img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.note-item-link:hover .note-thumbnail img {
+  transform: scale(1.05);
 }
 
 .note-content {
@@ -302,6 +314,8 @@ body.nav-active {
   margin-top: 10px;
   line-height: 1.6;
 }
+
+
 
 
 
