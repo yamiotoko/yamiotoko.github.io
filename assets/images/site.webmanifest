@@ -1,6 +1,6 @@
 {
-  "name": "闇男 - 公式サイト",
-  "short_name": "闇男",
+  "name": "{{ site.title }}",
+  "short_name": "{{ site.title }}",
   "icons": [
     {
       "src": "/assets/images/web-app-manifest-192x192.png",

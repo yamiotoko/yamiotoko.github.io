@@ -8,3 +8,7 @@
 <link rel="shortcut icon" href="{{ '/assets/images/favicon.ico' | relative_url }}" />
 <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/images/apple-touch-icon.png' | relative_url }}" />
 <link rel="manifest" href="{{ '/assets/images/site.webmanifest' | relative_url }}" />
+
+<!-- キャッシュバスティング（推奨） -->
+{% assign cache_version = site.time | date: '%Y%m%d%H%M' %}
+<link rel="stylesheet" href="{{ '/assets/css/main.css?v=' | append: cache_version | relative_url }}">
