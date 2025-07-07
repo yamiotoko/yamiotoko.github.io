@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(data => {
       const items = data.querySelectorAll("item");
       let html = '';
+      const mediaNS = "http://search.yahoo.com/mrss/"; // 名前空間をループの外で定義
       
       items.forEach(el => {
         const title = el.querySelector("title").textContent;
@@ -36,37 +37,32 @@ document.addEventListener('DOMContentLoaded', () => {
         // サムネイル画像のURLを抽出 - 修正箇所
         let thumbnailUrl = '';
         
-        // 方法1: media:thumbnailタグから直接取得
-        const mediaThumbnail = el.getElementsByTagName('media:thumbnail')[0];
+       // 方法1: media:thumbnailタグから直接取得（名前空間対応）
+        const mediaThumbnail = el.getElementsByTagNameNS(mediaNS, "thumbnail")[0];
         if (mediaThumbnail) {
-          thumbnailUrl = mediaThumbnail.getAttribute('url');
+          thumbnailUrl = mediaThumbnail.textContent; // textContentでURLを取得
         }
         
-        // 方法2: 代替方法としてcontent:encodedから画像を抽出
+        // 方法2: descriptionから画像URLを抽出（CDATA内の最初のimgタグ）
         if (!thumbnailUrl) {
-          const contentEncoded = el.getElementsByTagNameNS('*', 'content:encoded')[0];
-          if (contentEncoded) {
-            const contentHtml = contentEncoded.textContent;
-            const imgMatch = contentHtml.match(/<img[^>]+src="([^">]+)"/i);
-            if (imgMatch && imgMatch[1]) {
-              thumbnailUrl = imgMatch[1];
+          const cdataContent = description.match(/<!\[CDATA\[(.*?)\]\]>/s);
+          if (cdataContent && cdataContent[1]) {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = cdataContent[1];
+            const img = tempDiv.querySelector('img');
+            if (img) {
+              thumbnailUrl = img.src;
             }
           }
         }
-        
-        // 方法3: さらに代替方法としてdescriptionから画像を抽出
-        if (!thumbnailUrl) {
-          const descImgMatch = description.match(/<img[^>]+src="([^">]+)"/i);
-          if (descImgMatch && descImgMatch[1]) {
-            thumbnailUrl = descImgMatch[1];
-          }
-        }
-        
+
         // 説明文からHTMLタグを除去してテキストのみを取得
         const textDescription = description
           .replace(/<[^>]*>/g, '')
+          .replace(/<!\[CDATA\[|\]\]>/g, '')
           .substring(0, 100) + '...';
-        
+          
+        // 100文字を超える場合は省略して「...」を追加        
         html += `
           <div class="note-item">
             <a href="${link}" target="_blank" rel="noopener noreferrer" class="note-item-link">
