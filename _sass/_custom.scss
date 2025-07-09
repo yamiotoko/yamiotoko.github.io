@@ -387,8 +387,39 @@ body.nav-active {
     -webkit-line-clamp: 4; // 追加: 最大4行表示
     -webkit-box-orient: vertical; // 追加: 垂直方向に制限
     text-overflow: ellipsis; // 省略記号を表示
+  
+    // 記事内リンクのスタイル
+    a {
+      color: $accent-gray;
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s ease;
+      
+      // リンクの下線アニメーション
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: $accent-color;
+        transition: width 0.3s ease;
+      }
+
+      // ホバーエフェクト
+      &:hover {
+        color: $accent-color !important;
+        
+        &::after {
+          width: 100%;
+        }
+      }
+    }
   }
 }
+
+
 
 @keyframes underline-expand {
   from { width: 0; }
