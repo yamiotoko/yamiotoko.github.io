@@ -334,6 +334,7 @@ body.nav-active {
   display: block;
   color: inherit;
   text-decoration: none !important;
+  height: 100%; // リンクの高さを親グリッドセルに合わせる
   
   &:hover {
     .news-item {
@@ -356,13 +357,25 @@ body.nav-active {
   height: 100%;
   border: 1px solid $border-color;
   transition: all 0.3s ease;
-  
+  display: flex; // 追加: フレックスボックスを使用
+  flex-direction: column; // 追加: 縦方向に配置
+  position: relative; // 追加: コンテンツ位置を相対指定
+
+  // 追加: コンテンツ全体を包むラッパー
+  .news-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; // はみ出し防止
+  }
+
   h3 {
     margin: 0 0 10px 0;
     color: $light-text !important;
     font-size: 1.3rem;
     font-weight: 500;
     transition: color 0.3s ease;
+    overflow-wrap: break-word; // 追加: 長い単語を折り返す
   }
   
   time {
@@ -375,6 +388,14 @@ body.nav-active {
   div {
     color: $accent-gray;
     line-height: 1.6;
+    flex-grow: 1; // 追加: 利用可能なスペースを埋める
+    overflow: hidden; // 追加: はみ出し防止
+    
+    // 要約テキストの行数制限
+    display: -webkit-box; // 追加: テキストを制限
+    -webkit-line-clamp: 4; // 追加: 最大4行表示
+    -webkit-box-orient: vertical; // 追加: 垂直方向に制限
+    text-overflow: ellipsis; // 省略記号を表示
   }
 }
 
