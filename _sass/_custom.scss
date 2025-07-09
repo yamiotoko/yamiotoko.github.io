@@ -447,13 +447,16 @@ body.nav-active {
   }
 
   &-title {
-    font-size: 2rem;
-    color: $light-text;
-    margin-bottom: 0.5rem;
+    line-height: 1.4; /* デスクトップ時の行間 */
+    padding-top: 0.5rem; /* 上部余白 */
+    margin-bottom: 0.8rem;
+    word-break: break-word; /* 長い単語の折り返し */
+    overflow-wrap: anywhere; /* 緊急時の折り返し */
   }
 
   &-date {
     color: $accent-gray;
+    margin-top: 0.5rem; /* 日付との間隔 */
     font-size: 0.9rem;
   }
 
@@ -748,6 +751,14 @@ body.nav-active {
     
     &.active {
       display: block;
+    }
+  }
+
+  /* 記事ページのスタイル調整 */
+  .post{
+    &-title{
+      line-height: 1.5; /* モバイル時の行間を広く */
+      font-size: 1.8rem !important; /* モバイル時のフォントサイズ調整 */
     }
   }
 }
