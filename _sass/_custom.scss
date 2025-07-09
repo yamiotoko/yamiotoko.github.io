@@ -432,13 +432,13 @@ body.nav-active {
   }
 }
 
+
 // 各お知らせページのレイアウト
 .post {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
-  background: rgba(30, 30, 30, 0.8);
-  border-radius: 8px;
+  width: 100%;
+  padding: 60px 20px 80px; // 左右パディングを追加
+  box-sizing: border-box;
+  background-color: $dark-section;
 
   &-header {
     margin-bottom: 2rem;
