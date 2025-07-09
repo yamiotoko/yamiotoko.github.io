@@ -485,6 +485,36 @@ body.nav-active {
 }
 
 
+/* 戻るボタンスタイル */
+.back-button {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  padding: 8px 16px;
+  color: $accent-color !important;
+  text-decoration: none !important;
+  border: 1px solid $accent-color;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: rgba($accent-color, 0.1);
+    transform: translateY(-2px);
+  }
+}
+
+.post-footer {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid $border-color;
+  text-align: center;
+  
+  .back-button {
+    padding: 10px 24px;
+    font-size: 1.1rem;
+  }
+}
+
+
 @keyframes underline-expand {
   from { width: 0; }
   to { width: 100%; }
@@ -760,6 +790,12 @@ body.nav-active {
       line-height: 1.5; /* モバイル時の行間を広く */
       font-size: 1.8rem !important; /* モバイル時のフォントサイズ調整 */
     }
+  }
+
+  /*戻るボタンレイアウト*/
+  .back-button {
+    padding: 6px 12px;
+    font-size: 0.9rem;
   }
 }
 

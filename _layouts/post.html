@@ -3,6 +3,7 @@ layout: default
 ---
 <article class="post">
   <header class="post-header">
+    <a href="/news" class="back-button">← お知らせ一覧に戻る</a>
     <h1 class="post-title">{{ page.title }}</h1>
     <time class="post-date" datetime="{{ page.date | date_to_xmlschema }}">
       {{ page.date | date: "%Y年%m月%d日" }}
@@ -12,4 +13,8 @@ layout: default
   <div class="post-content">
     {{ content }}
   </div>
+
+  <footer class="post-footer">
+    <a href="/news" class="back-button">お知らせ一覧に戻る</a>
+  </footer>
 </article>
