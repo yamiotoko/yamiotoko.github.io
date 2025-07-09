@@ -24,8 +24,12 @@ description: >- # this means to ignore newlines until "baseurl:"
   闇を好む小説家、闇男(やみおとこ)と申します。日常の裏に潜む異常を描き、読者の心に静かに忍び寄る物語を紡ぎます。
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://yamiotoko.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+
+
+youtube_userid: UCSqAYwgZ_8NodeNygSR_ung
 twitter_username: yamiotoko_novel
 github_username:  yamiotoko
+note_username: yamiotoko
 
 # Build settings
 theme: minima

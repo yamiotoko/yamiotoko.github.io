@@ -511,6 +511,89 @@ body.nav-active {
 }
 
 
+// フッタースタイル
+.site-footer {
+  padding: 30px 0;
+  background-color: $dark-section;
+  border-top: 1px solid $border-color;
+  text-align: center;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  p {
+    margin-bottom: 15px;
+    color: $accent-gray;
+  }
+}
+
+// ソーシャルリンクスタイル
+.social-links {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap; /* モバイルで折り返し可能に */
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: $accent-color;
+      transform: translateY(-3px);
+
+      .social-icon {
+        fill: $dark-bg;
+      }
+    }
+  }
+
+  .social-icon {
+    width: 22px;
+    height: 22px;
+    fill: $accent-gray;
+    transition: fill 0.3s ease;
+  }
+}
+
+/* noteアイコン特有の調整 */
+.social-links a[aria-label="note"] .social-icon {
+  width: 24px; /* noteロゴは少し大きめに */
+  height: 24px;
+}
+
+/* Xアイコン専用スタイル */
+.social-links {
+  .x-icon {
+    width: 20px; /* 他のアイコンより少し小さく */
+    height: 20px;
+    
+    path {
+      fill: currentColor; /* カラーを継承 */
+    }
+  }
+  
+  a[aria-label="X (旧Twitter)"] {
+    /* Xアイコンの位置調整 */
+    position: relative;
+    top: -1px; /* 他のアイコンとのバランス調整 */
+  }
+}
+
+
+
+
+
+
 
 /* タブレットサイズ (769px - 992px) */
 @media (max-width: 992px) {
