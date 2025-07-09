@@ -8,20 +8,3 @@
 <link rel="shortcut icon" href="{{ '/assets/images/favicon.ico' | relative_url }}" />
 <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/images/apple-touch-icon.png' | relative_url }}" />
 <link rel="manifest" href="{{ '/assets/images/site.webmanifest' | relative_url }}" />
-<!-- Xウィジェットスクリプト -->
-<script>
-  window.twttr = (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0],
-      t = window.twttr || {};
-    if (d.getElementById(id)) return t;
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "https://platform.twitter.com/widgets.js";
-    fjs.parentNode.insertBefore(js, fjs);
-    t._e = [];
-    t.ready = function(f) {
-      t._e.push(f);
-    };
-    return t;
-  }(document, "script", "twitter-wjs"));
-</script>
