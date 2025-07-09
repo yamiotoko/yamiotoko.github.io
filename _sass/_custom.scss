@@ -558,7 +558,7 @@ body.nav-active {
   }
 
   p {
-    margin-bottom: 15px;
+    margin-top: 15px;
     color: $accent-gray;
   }
 }
@@ -622,6 +622,69 @@ body.nav-active {
   }
 }
 
+
+/* フッターリンクスタイル */
+.footer-links {
+  margin: 15px 0;
+  
+  a {
+    color: $accent-gray;
+    text-decoration: none !important;
+    position: relative;
+    padding: 5px 10px;
+    transition: color 0.3s ease;
+    
+    &:hover {
+      color: $accent-color !important;
+    }
+  }
+}
+
+/* プライバシーポリシーページスタイル */
+.page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  
+  &-header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid $border-color;
+    padding-bottom: 1rem;
+  }
+  
+  &-content {
+    line-height: 1.8;
+
+    a {
+      color: $accent-color;
+      text-decoration: none;
+      border-bottom: 1px dotted $accent-color;
+      
+      &:hover {
+        border-bottom-style: solid;
+      }
+    }
+    
+    h2 {
+      margin-top: 2.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid $border-color;
+    }
+    
+    h3 {
+      margin-top: 1.8rem;
+    }
+    
+    ul {
+      padding-left: 1.5rem;
+      margin: 1rem 0;
+      
+      li {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+}
 
 
 
@@ -795,6 +858,12 @@ body.nav-active {
   /*戻るボタンレイアウト*/
   .back-button {
     padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+
+  /* フッターのスタイル調整 */
+  .footer-links {
+    margin: 10px 0;
     font-size: 0.9rem;
   }
 }
