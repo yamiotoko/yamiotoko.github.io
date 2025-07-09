@@ -316,10 +316,23 @@ body.nav-active {
 }
 
 
+/* グッズページのスタイル*/
+.goods-container {
+  width: 100%;
+  padding: 60px 20px 80px; // 左右パディングを追加
+  box-sizing: border-box;
+  background-color: $dark-section;
+}
 
 
+/* お知らせページのスタイル */
+.news-container {
+  width: 100%;
+  padding: 60px 20px 80px; // 左右パディングを追加
+  box-sizing: border-box;
+  background-color: $dark-section;
+}
 
-/* お知らせページスタイル */
 .news-list {
   margin-top: 40px;
   display: grid;
