@@ -6,6 +6,11 @@ $accent-gray: #aaa;
 $border-color: #333;
 $accent-color: #f0c050; // アクセントカラーを追加
 
+@font-face {
+  font-family: 'Genkai Mincho';
+  src: url('/assets/fonts/GenkaiMincho.ttf') format('truetype');
+  font-display: swap;
+}
 
 
 // 基本スタイルに追加
@@ -19,7 +24,8 @@ html {
 body {
   background-color: $dark-bg;
   color: $light-text;
-  font-family: 'Noto Sans JP', sans-serif;
+  // font-family: 'Noto Sans JP', sans-serif;
+  font-family: 'Genkai Mincho', sans-serif;
   margin: 0;
   line-height: 1.6;
   width: 100%;
@@ -71,7 +77,7 @@ body.nav-active {
     letter-spacing: 0.5rem;
     font-weight: 300;
     margin-bottom: 2rem;
-    font-family: 'Montserrat', sans-serif;
+    // font-family: 'Montserrat', sans-serif;
   }
   
   .note-link {
