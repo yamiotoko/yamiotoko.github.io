@@ -1,4 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const videoBg = document.querySelector('.video-background');
+  const video = videoBg.querySelector('video');
+  
+  // 動画再生を試みる
+  const playPromise = video.play();
+  
+  // 再生失敗時のフォールバック
+  if (playPromise !== undefined) {
+    playPromise.catch(error => {
+      videoBg.classList.add('no-autoplay');
+    });
+  }
+  
+  // iOS用の特別な処理
+  if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+    // ユーザー操作後に動画をロード
+    document.body.addEventListener('touchstart', function init() {
+      video.load();
+      video.play();
+      document.body.removeEventListener('touchstart', init);
+    });
+  }
+  
+
   // ハンバーガーメニュー機能
   const hamburger = document.getElementById('hamburger-menu');
   const navMenu = document.getElementById('main-nav');
