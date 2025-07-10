@@ -20,3 +20,10 @@
     gtag('config', '{{ site.google_analytics }}');
 </script>
 {% endif %}
+
+<!-- Google Search Console -->
+{% if site.google_site_verification %}
+<meta name="google-site-verification" content="{{ site.google_site_verification }}" />
+{% endif %}
+
+
