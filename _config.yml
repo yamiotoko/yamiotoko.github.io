@@ -30,11 +30,13 @@ twitter_username: yamiotoko_novel
 github_username:  yamiotoko
 note_username: yamiotoko
 
+google_analytics: G-YFQC8N81YP # Google Analyticsの測定ID
+
 # Build settings
 theme: minima
 plugins:
   - jekyll-feed
-  # - jekyll-sitemap  # サイトマップ生成
+  - jekyll-sitemap  # サイトマップ生成
 
 include:
   - favicon.ico
