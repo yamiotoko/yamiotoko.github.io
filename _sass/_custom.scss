@@ -66,6 +66,14 @@ body.nav-active {
   text-align: center;
   overflow: hidden; /* はみ出し防止 */
 
+  /* 背景を完全に透明に設定 */
+  background: transparent !important;
+
+  /* コンテンツの背景色を削除 */
+  & > * {
+    background: transparent !important;
+  }
+
 
   h1 {
     font-size: 5rem;
@@ -225,14 +233,6 @@ body.nav-active {
   z-index: 2; /* コンテンツを前面に */
   text-align: center;
   padding: 20px; /* モバイルでコンテンツが端に寄らないように */
-
-  /* 背景を完全に透明に設定 */
-  background: transparent !important;
-
-  /* コンテンツの背景色を削除 */
-  & > * {
-    background: transparent !important;
-  }
 }
 
 /* ノート記事フィードスタイル */
