@@ -831,8 +831,7 @@ body.nav-active {
       box-shadow: -5px 0 15px rgba(0,0,0,0.5);
       overflow: hidden;
       box-sizing: border-box;
-      max-height: -webkit-fill-available; /* Safari用の特別なプロパティ
-
+      
       &.active {
         right: 0;
       }
@@ -846,8 +845,7 @@ body.nav-active {
         flex-direction: column;
         padding-bottom: 30px;
         -webkit-overflow-scrolling: touch; /* iOSでスムーズスクロール */
-        min-height: -webkit-fill-available; /* Safari対応 */
-
+        
         /* スクロールバーのスタイル */
         scrollbar-width: thin;
         scrollbar-color: $accent-gray $dark-section;
@@ -895,14 +893,6 @@ body.nav-active {
         }
       }
     }
-
-  /* iOS Safari用の追加修正 */
-  @supports (-webkit-touch-callout: none) {
-    .site-nav {
-      height: -webkit-fill-available;
-      max-height: 100vh;
-    }
-  }
   
   .video-background {
       /* モバイルでも動画表示 */
