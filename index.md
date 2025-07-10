@@ -5,12 +5,13 @@ title: 闇男 - 公式サイト
 
 <section class="hero">
   <!-- 動画背景 -->
-  <div class="video-background">
-    <video autoplay muted playsinline webkit-playsinline>
-      <source src="{{ '/assets/videos/background.mp4' | relative_url }}" type="video/mp4">
-    </video>
-    <div class="video-overlay"></div>
-  </div>
+<div class="video-background">
+  <video autoplay muted playsinline webkit-playsinline class="bg-video">
+    <source src="{{ '/assets/videos/background.mp4' | relative_url }}" type="video/mp4">
+  </video>
+  <div class="video-overlay"></div>
+  <button class="video-play-button" aria-label="動画を再生"></button>
+</div>
   
   <!-- コンテンツ -->
   <div class="hero-content">

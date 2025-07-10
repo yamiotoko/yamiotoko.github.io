@@ -345,6 +345,54 @@ body.nav-active {
   background: rgba(0,0,0,0.3); /* オーバーレイを明るく */
 }
 
+// 動画再生ボタンのスタイル
+.video-play-button {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255,255,255,0.2);
+  border: 2px solid $light-text;
+  border-radius: 50%;
+  z-index: 10;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-30%, -50%);
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left: 25px solid $light-text;
+  }
+  
+  &:hover {
+    background-color: rgba(255,255,255,0.3);
+  }
+
+  // 低電力モード時は常に表示
+  .low-power-mode & {
+    display: block;
+  }
+}
+
+// 動画再生時のボタン非表示
+.video-background.playing {
+  .video-play-button {
+    display: none;
+  }
+}
+
+
+
 .hero-content {
   position: relative;
   z-index: 2; /* コンテンツを前面に */
