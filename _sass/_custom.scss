@@ -99,12 +99,14 @@ body.nav-active {
   }
 }
 
+
 /* ヒーローロゴのスタイル */
 /* ロゴにグリッチエフェクトを追加 */
 .hero-logo {
   max-width: 250px;
   margin: 50px auto 20px;
   display: block;
+
   position: relative;
   animation: glitch-effect 4s infinite alternate;
   
@@ -208,6 +210,7 @@ body.nav-active {
   80% { transform: translate(3px, 3px); }
   100% { transform: translate(0); }
 }
+
 
 /* ナビゲーションのスタイル修正 */
 .site-nav {
