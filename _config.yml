@@ -33,18 +33,18 @@ note_username: yamiotoko
 google_analytics: G-YFQC8N81YP # Google Analyticsの測定ID
 google_site_verification: "V6rkRaq-XmLope0sjxaw4KtagKbVqbpZqGaJV9A1ALo" # Google Search Consoleのサイト所有権確認用コード
 
-# Build settings
-theme: minima
-plugins:
-  - jekyll-feed
-  - jekyll-sitemap  # サイトマップ生成
-
 include:
   - favicon.ico
   - favicon-*.png
   - apple-touch-icon.png
   - android-chrome-*.png
   - site.webmanifest
+
+# Build settings
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap  # サイトマップ生成
 
 
 # Exclude from processing.
