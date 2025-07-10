@@ -380,6 +380,7 @@ body.nav-active {
 
   // 低電力モード時は常に表示
   .low-power-mode & {
+    z-index: 2;
     display: block;
   }
 }
