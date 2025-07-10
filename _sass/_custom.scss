@@ -187,7 +187,6 @@ body.nav-active {
 
 
 /* 動画背景スタイル */
-/* 動画背景スタイル */
 .video-background {
   position: fixed;
   top: 0;
@@ -196,20 +195,6 @@ body.nav-active {
   height: 100%;
   overflow: hidden;
   z-index: -1;
-  
-  /* フォールバック背景スタイル */
-  .fallback-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('{{ "/assets/images/background-fallback.jpg" | relative_url }}');
-    background-size: cover;
-    background-position: center;
-    z-index: -2; // 動画よりも下に配置
-    display: none; // デフォルトでは非表示
-  }
   
   video {
     position: absolute;
@@ -222,12 +207,7 @@ body.nav-active {
     transform: translate(-50%, -50%) scale(1.1);
     object-fit: cover;
     filter: brightness(0.9);
-    opacity: 0;
     transition: opacity 1s ease;
-    
-    &.playing {
-      opacity: 1;
-    }
   }
 }
 
@@ -238,17 +218,6 @@ body.nav-active {
   width: 100%;
   height: 100%;
   background: rgba(0,0,0,0.3); /* オーバーレイを明るく */
-}
-
-/* フォールバックが有効な時のスタイル */
-.video-background.fallback-active {
-  video {
-    display: none; // 動画を非表示
-  }
-  
-  .fallback-background {
-    display: block; // フォールバック背景を表示
-  }
 }
 
 .hero-content {
