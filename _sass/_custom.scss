@@ -228,6 +228,11 @@ body.nav-active {
 
   /* 背景を完全に透明に設定 */
   background: transparent !important;
+
+  /* コンテンツの背景色を削除 */
+  & > * {
+    background: transparent !important;
+  }
 }
 
 /* ノート記事フィードスタイル */
