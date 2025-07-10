@@ -14,12 +14,6 @@
   url: /news.html
   icon: fas fa-bell
 
-- name: プロフィール
-  url: https://note.com/yamiotoko/n/nb739a913442e
-  external: true
-  new_tab: true # 新しいタブで開くフラグを追加
-  icon: fas fa-user
-
 - name: note
   url: https://note.com/yamiotoko
   external: true
