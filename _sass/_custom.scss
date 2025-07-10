@@ -241,7 +241,7 @@ body.nav-active {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 15px 0;
+  padding: 20px 0;
   
   .nav-link {
     flex: 1;
@@ -280,14 +280,11 @@ body.nav-active {
 /* ハンバーガーメニューボタン */
 .hamburger {
   display: none;
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 1002;
   background: none;
   border: none;
   cursor: pointer;
   padding: 10px;
+  z-index: 1000;
   
   .hamburger-line {
     display: block;
@@ -297,53 +294,22 @@ body.nav-active {
     margin: 5px 0;
     transition: all 0.3s ease;
   }
-  
-  &.active {
-    .hamburger-line:nth-child(1) {
-      transform: translateY(8px) rotate(45deg);
-    }
-    .hamburger-line:nth-child(2) {
-      opacity: 0;
-    }
-    .hamburger-line:nth-child(3) {
-      transform: translateY(-8px) rotate(-45deg);
-    }
-  }
 }
 
-
-// .hamburger {
-//   display: none;
-//   background: none;
-//   border: none;
-//   cursor: pointer;
-//   padding: 10px;
-//   z-index: 1000;
+/* ハンバーガーアニメーション */
+.hamburger.active {
+  .hamburger-line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
   
-//   .hamburger-line {
-//     display: block;
-//     width: 25px;
-//     height: 3px;
-//     background-color: $light-text;
-//     margin: 5px 0;
-//     transition: all 0.3s ease;
-//   }
-// }
-
-// /* ハンバーガーアニメーション */
-// .hamburger.active {
-//   .hamburger-line:nth-child(1) {
-//     transform: translateY(8px) rotate(45deg);
-//   }
+  .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
   
-//   .hamburger-line:nth-child(2) {
-//     opacity: 0;
-//   }
-  
-//   .hamburger-line:nth-child(3) {
-//     transform: translateY(-8px) rotate(-45deg);
-//   }
-// }
+  .hamburger-line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}
 
 /* 動画背景スタイル */
 .video-background {
@@ -853,128 +819,80 @@ body.nav-active {
 /* タブレットサイズ (769px - 992px) */
 @media (max-width: 992px) {
   .site-nav {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 280px;
-    height: 100vh; /* ビューポート全体の高さ */
-    background-color: rgba(17,17,17,0.98);
-    padding: 80px 20px 20px; /* 上部余白を増やす */
-    transition: right 0.3s ease;
-    z-index: 1001;
-    overflow-y: auto; /* スクロール可能に */
-    
-    /* メニュー開いた状態 */
-    &.active {
-      right: 0;
-    }
-
-    /* ナビゲーションリンクコンテナ */
-    .nav-links-container {
-      height: calc(100vh - 100px); /* ヘッダー高さを考慮 */
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start; /* 上部から配置 */
-      padding-top: 20px; /* 上部余白 */
-    }
-
-    /* 個別リンクスタイル */
-    .nav-link {
-      display: block;
-      padding: 15px;
-      margin: 5px 0;
-      border-bottom: 1px solid $border-color;
-      font-size: 1.1rem;
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 250px;
+      height: 100vh;
+      background-color: rgba(17,17,17,0.98);
+      padding: 70px 0 20px; /* 調整 */
+      transition: right 0.3s ease;
+      z-index: 999;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+      overflow: hidden;
+      box-sizing: border-box;
       
-      &:first-child {
-        margin-top: 0; /* 最初のアイテムの余白削除 */
+      &.active {
+        right: 0;
+      }
+      
+      /* スクロール可能なコンテナ */
+      .nav-links-container {
+        height: calc(100% - 0px);
+        overflow-y: auto;
+        padding: 0 20px;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 30px;
+        -webkit-overflow-scrolling: touch; /* iOSでスムーズスクロール */
+        
+        /* スクロールバーのスタイル */
+        scrollbar-width: thin;
+        scrollbar-color: $accent-gray $dark-section;
+        
+        &::-webkit-scrollbar {
+          width: 6px;
+        }
+        
+        &::-webkit-scrollbar-track {
+          background: $dark-section;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+          background-color: $accent-gray;
+          border-radius: 3px;
+        }
+      }
+      
+      .nav-link {
+        width: 100%;
+        min-width: auto;
+        max-width: none;
+        margin: 10px 0;
+        padding: 12px 0;
+        font-size: 1.1rem;
+        border-bottom: 1px solid $border-color;
+        text-align: left;
+        padding-left: 20px;
+        
+        &:hover, &.active {
+          color: #fff; // モバイルでも文字色を明るく
+          background-color: rgba($light-text, 0.1); // 背景色をわずかに明るく
+          text-shadow: 0 0 5px rgba(255,255,255,0.5); // グロー効果
+
+          &::after {
+            // content: '';
+            // position: absolute;
+            // bottom: 0;
+            // left: 20px;
+            // width: calc(100% - 40px);
+            // height: 1px;
+            // display: block;
+            background-color: $accent-color; // モバイルの下線アニメーションも削除
+          }
+        }
       }
     }
-  }
-
-  /* ハンバーガーボタン位置調整 */
-  .hamburger {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1002;
-  }
-
-  // .site-nav {
-  //     position: fixed;
-  //     top: 0;
-  //     right: -100%;
-  //     width: 280px;
-  //     height: 100vh;
-  //     background-color: rgba(17,17,17,0.98);
-  //     padding: 70px 0 20px; /* 調整 */
-  //     transition: right 0.3s ease;
-  //     z-index: 999;
-  //     box-shadow: -5px 0 15px rgba(0,0,0,0.5);
-  //     overflow: hidden;
-  //     box-sizing: border-box;
-      
-  //     &.active {
-  //       right: 0;
-  //     }
-      
-  //     /* スクロール可能なコンテナ */
-  //     .nav-links-container {
-  //       height: calc(100% - 0px);
-  //       overflow-y: auto;
-  //       padding: 0 20px;
-  //       display: flex;
-  //       flex-direction: column;
-  //       padding-bottom: 30px;
-  //       -webkit-overflow-scrolling: touch; /* iOSでスムーズスクロール */
-        
-  //       /* スクロールバーのスタイル */
-  //       scrollbar-width: thin;
-  //       scrollbar-color: $accent-gray $dark-section;
-        
-  //       &::-webkit-scrollbar {
-  //         width: 6px;
-  //       }
-        
-  //       &::-webkit-scrollbar-track {
-  //         background: $dark-section;
-  //       }
-        
-  //       &::-webkit-scrollbar-thumb {
-  //         background-color: $accent-gray;
-  //         border-radius: 3px;
-  //       }
-  //     }
-      
-  //     .nav-link {
-  //       width: 100%;
-  //       min-width: auto;
-  //       max-width: none;
-  //       margin: 10px 0;
-  //       padding: 12px 0;
-  //       font-size: 1.1rem;
-  //       border-bottom: 1px solid $border-color;
-  //       text-align: left;
-  //       padding-left: 20px;
-        
-  //       &:hover, &.active {
-  //         color: #fff; // モバイルでも文字色を明るく
-  //         background-color: rgba($light-text, 0.1); // 背景色をわずかに明るく
-  //         text-shadow: 0 0 5px rgba(255,255,255,0.5); // グロー効果
-
-  //         &::after {
-  //           // content: '';
-  //           // position: absolute;
-  //           // bottom: 0;
-  //           // left: 20px;
-  //           // width: calc(100% - 40px);
-  //           // height: 1px;
-  //           // display: block;
-  //           background-color: $accent-color; // モバイルの下線アニメーションも削除
-  //         }
-  //       }
-  //     }
-  //   }
   
   .video-background {
       /* モバイルでも動画表示 */

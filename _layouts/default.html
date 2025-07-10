@@ -17,38 +17,7 @@
   
   {% include footer.html %}
   
-  <!-- <script src="{{ '/assets/js/main.js' | relative_url }}"></script> -->
+  <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
 
-  <!-- jQuery読み込み -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  <!-- ハンバーガーメニュー制御 -->
-  <script>
-    $(function() {
-      $('#hamburger-menu').on('click', function() {
-        $(this).toggleClass('active');
-        $('#main-nav').toggleClass('active');
-        $('body').toggleClass('nav-active');
-        
-        // オーバーレイの動的追加/削除
-        if ($('#main-nav').hasClass('active')) {
-          $('<div class="nav-overlay"></div>').appendTo('body').on('click', function() {
-            $('#hamburger-menu, #main-nav').removeClass('active');
-            $('body').removeClass('nav-active');
-            $(this).remove();
-          });
-        } else {
-          $('.nav-overlay').remove();
-        }
-      });
-      
-      // メニュー内リンククリックで閉じる
-      $('#main-nav .nav-link').on('click', function() {
-        $('#hamburger-menu, #main-nav').removeClass('active');
-        $('body').removeClass('nav-active');
-        $('.nav-overlay').remove();
-      });
-    });
-  </script>
 </body>
 </html>
