@@ -99,68 +99,133 @@ body.nav-active {
   }
 }
 
-
 /* ヒーローロゴのスタイル */
 /* ロゴにグリッチエフェクトを追加 */
 .hero-logo {
   max-width: 250px;
   margin: 50px auto 20px;
   display: block;
-
   position: relative;
-  animation: glitch-effect 4s infinite alternate;
-  
   /* 基本の浮遊アニメーションと併用 */
   animation: 
     float 2s ease-in-out infinite,
-    glitch-effect 4s infinite alternate;
-  
-  // &:hover {
-  //   animation: 
-  //     float 3s ease-in-out infinite,
-  //     glitch-effect-hover 1s infinite alternate;
-  // }
+    glitch-effect 4s infinite alternate; /* glitch-effectを適用 */
 }
 
 /* 通常時のグリッチエフェクト */
 @keyframes glitch-effect {
   0% {
-    filter: drop-shadow(0 0 5px rgba(150, 0, 0, 0.3));
+    filter: drop-shadow(0 0 5px rgba(150, 0, 0, 0.3)); /* 薄い影 */
+    transform: translate(0, 0) skew(0deg);
   }
   2%, 64% {
-    transform: translate(2px, 0) skew(0deg);
+    transform: translate(2px, 0) skew(0deg); /* わずかな横ずれ */
     filter: drop-shadow(0 0 5px rgba(150, 0, 0, 0.3));
   }
   4%, 60% {
-    transform: translate(-2px, 0) skew(0deg);
-    filter: drop-shadow(0 0 10px rgba(200, 0, 0, 0.5));
+    transform: translate(-2px, 0) skew(0deg); /* わずかな横ずれ */
+    filter: drop-shadow(0 0 10px rgba(200, 0, 0, 0.5)); /* 少し強い影 */
   }
   62% {
-    transform: translate(0, 0) skew(5deg);
-    filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.7));
+    transform: translate(0, 0) skew(5deg); /* 傾き */
+    filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.7)); /* 強い影 */
+  }
+  65% { /* 激しいグリッチの開始 */
+    transform: translate(5px, 5px) skew(-10deg);
+    filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.9));
+    opacity: 0.8;
+  }
+  66% {
+    transform: translate(-5px, -5px) skew(10deg);
+    filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.9));
+    opacity: 0.8;
+  }
+  67% { /* 激しいグリッチの終了 */
+    transform: translate(0, 0) skew(0deg);
+    filter: drop-shadow(0 0 5px rgba(150, 0, 0, 0.3));
+    opacity: 1;
+  }
+  100% {
+    filter: drop-shadow(0 0 5px rgba(150, 0, 0, 0.3));
+    transform: translate(0, 0) skew(0deg);
   }
 }
 
-/* ホバー時の激しいグリッチエフェクト */
+/* グリッチの断片表現 */
+.hero-logo::before,
+.hero-logo::after {
+  content: attr(data-text); /* `data-text`属性からコンテンツを取得 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+  text-shadow: 0 0 5px rgba(255, 0, 0, 0.5); /* 文字に影を追加 */
+  font-size: 5rem; /* ロゴのテキストサイズに合わせる */
+  font-family: 'Genkai Mincho', sans-serif; /* ロゴと同じフォント */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* はみ出しを隠す */
+}
+
+.hero-logo::before {
+  color: #f00; /* 赤色のグリッチ */
+  z-index: -1;
+  animation: glitch-before 2s infinite alternate;
+}
+
+.hero-logo::after {
+  color: #0ff; /* シアン色のグリッチ */
+  z-index: -2;
+  animation: glitch-after 1.5s infinite alternate; /* 少し異なる速度 */
+}
+
+@keyframes glitch-before {
+  0% { transform: translate(0); }
+  20% { transform: translate(-3px, 3px); clip-path: inset(0 0 80% 0); } /* 上部がずれる */
+  40% { transform: translate(-3px, -3px); clip-path: inset(80% 0 0 0); } /* 下部がずれる */
+  60% { transform: translate(3px, 3px); clip-path: inset(0 60% 0 0); } /* 右側がずれる */
+  80% { transform: translate(3px, -3px); clip-path: inset(0 0 0 60%); } /* 左側がずれる */
+  100% { transform: translate(0); clip-path: inset(0 0 0 0); }
+}
+
+@keyframes glitch-after {
+  0% { transform: translate(0); }
+  20% { transform: translate(3px, -3px); clip-path: inset(0 0 0 70%); }
+  40% { transform: translate(-3px, 3px); clip-path: inset(70% 0 0 0); }
+  60% { transform: translate(-3px, -3px); clip-path: inset(0 50% 0 0); }
+  80% { transform: translate(3px, 3px); clip-path: inset(0 0 50% 0); }
+  100% { transform: translate(0); clip-path: inset(0 0 0 0); }
+}
+
+/* ホバー時の激しいグリッチエフェクト (オプション) */
+.hero-logo:hover {
+  animation: 
+    float 3s ease-in-out infinite,
+    glitch-effect-hover 0.5s infinite alternate; /* ホバー時はより速いグリッチ */
+}
+
 @keyframes glitch-effect-hover {
   0% {
     transform: translate(0);
     filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
   }
   20% {
-    transform: translate(-3px, 3px);
+    transform: translate(-5px, 5px);
     filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.7));
   }
   40% {
-    transform: translate(-3px, -3px);
+    transform: translate(-5px, -5px);
     filter: drop-shadow(0 0 12px rgba(150, 0, 0, 0.8));
   }
   60% {
-    transform: translate(3px, 3px);
+    transform: translate(5px, 5px);
     filter: drop-shadow(0 0 18px rgba(255, 0, 0, 0.9));
   }
   80% {
-    transform: translate(3px, -3px);
+    transform: translate(5px, -5px);
     filter: drop-shadow(0 0 15px rgba(200, 0, 0, 0.7));
   }
   100% {
@@ -168,49 +233,6 @@ body.nav-active {
     filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
   }
 }
-
-/* グリッチの断片表現（オプション） */
-.hero-logo::before,
-.hero-logo::after {
-  content: attr(alt);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.8;
-}
-
-.hero-logo::before {
-  color: #f00;
-  z-index: -1;
-  animation: glitch-before 2s infinite alternate;
-}
-
-.hero-logo::after {
-  color: #0ff;
-  z-index: -2;
-  animation: glitch-after 1s infinite alternate;
-}
-
-@keyframes glitch-before {
-  0% { transform: translate(0); }
-  20% { transform: translate(-3px, 3px); }
-  40% { transform: translate(-3px, -3px); }
-  60% { transform: translate(3px, 3px); }
-  80% { transform: translate(3px, -3px); }
-  100% { transform: translate(0); }
-}
-
-@keyframes glitch-after {
-  0% { transform: translate(0); }
-  20% { transform: translate(3px, -3px); }
-  40% { transform: translate(-3px, 3px); }
-  60% { transform: translate(-3px, -3px); }
-  80% { transform: translate(3px, 3px); }
-  100% { transform: translate(0); }
-}
-
 
 /* ナビゲーションのスタイル修正 */
 .site-nav {
