@@ -31,9 +31,6 @@ github_username:  yamiotoko
 note_username: yamiotoko
 
 # Build settings
-google_analytics: G-YFQC8N81YP
-
-# Build settings
 theme: minima
 plugins:
   - jekyll-feed
