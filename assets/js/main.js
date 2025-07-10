@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     playPromise.catch(error => {
       videoBg.classList.add('no-autoplay');
     });
-  }
+  };
   
   // iOS用の特別な処理
   if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
       video.play();
       document.body.removeEventListener('touchstart', init);
     });
-  }
+  };
   
 
   // ハンバーガーメニュー機能
