@@ -311,7 +311,6 @@ body.nav-active {
   }
 }
 
-
 /* 動画背景スタイル */
 .video-background {
   position: fixed;
@@ -334,32 +333,6 @@ body.nav-active {
     object-fit: cover;
     filter: brightness(0.9);
     transition: opacity 1s ease;
-    
-    /* フォールバック用スタイル */
-    &[poster] {
-      background-size: cover;
-    }
-  }
-  
-  /* フォールバック画像スタイル */
-  img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: none; /* デフォルトで非表示 */
-  }
-  
-  /* 動画が再生できない場合のフォールバック */
-  &.no-autoplay {
-    video {
-      display: none;
-    }
-    img {
-      display: block;
-    }
   }
 }
 

@@ -1,9 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   // ハンバーガーメニュー機能
   initHamburgerMenu();
-  
-  // 動画背景処理
-  initVideoBackground();
 });
 
 /**
@@ -61,50 +58,4 @@ function closeMenu(hamburger, navMenu, navOverlay, body) {
   body.classList.remove('nav-active');
   hamburger.setAttribute('aria-expanded', 'false');
   hamburger.setAttribute('aria-label', 'メニューを開く');
-}
-
-/**
- * 動画背景初期化
- */
-function initVideoBackground() {
-  const videoBg = document.querySelector('.video-background');
-  if (!videoBg) return;
-
-  const video = videoBg.querySelector('video');
-  const fallbackImg = videoBg.querySelector('img');
-
-  // iOSデバイス判定
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-
-  const handleVideoPlay = () => {
-    video.play()
-      .then(() => {
-        videoBg.classList.remove('no-autoplay');
-      })
-      .catch(error => {
-        console.log('動画自動再生失敗:', error);
-        videoBg.classList.add('no-autoplay');
-      });
-  };
-
-  // 初期再生試行
-  if (!isIOS) {
-    handleVideoPlay();
-  }
-
-  // iOS用: ユーザー操作後に動画ロード
-  if (isIOS) {
-    document.body.addEventListener('touchstart', function init() {
-      video.load();
-      handleVideoPlay();
-      document.body.removeEventListener('touchstart', init);
-    }, { once: true });
-  }
-
-  // 動画ロードチェック
-  video.addEventListener('loadeddata', () => {
-    if (video.readyState >= 3) {
-      videoBg.classList.remove('no-autoplay');
-    }
-  });
 }
