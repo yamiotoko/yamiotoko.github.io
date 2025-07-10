@@ -40,11 +40,11 @@ plugins:
   - jekyll-sitemap  # サイトマップ生成
 
 # include:
-#   - favicon.ico
-#   - favicon-*.png
-#   - apple-touch-icon.png
-#   - android-chrome-*.png
-#   - site.webmanifest
+  - favicon.ico
+  - favicon-*.png
+  - apple-touch-icon.png
+  - android-chrome-*.png
+  - site.webmanifest
 
 
 # Exclude from processing.
