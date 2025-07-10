@@ -41,3 +41,55 @@
     </div>
   </div>
 </footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const video = document.getElementById('bg-video');
+  const videoBackground = document.querySelector('.video-background');
+  
+  // 動画再生を試みる関数
+  function attemptPlay() {
+    // 動画再生がサポートされているかチェック
+    if (video && typeof video.play === 'function') {
+      const playPromise = video.play();
+      
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            console.log("動画再生に成功しました");
+            video.classList.add('playing');
+          })
+          .catch(error => {
+            console.log("動画再生がブロックされました:", error);
+            activateFallback();
+          });
+      }
+    } else {
+      // 動画タグがサポートされていない環境
+      activateFallback();
+    }
+  }
+
+  // フォールバックを有効化する関数
+  function activateFallback() {
+    console.log("フォールバック画像を表示します");
+    videoBackground.classList.add('fallback-active');
+  }
+  
+  // 動画のメタデータが読み込まれたら再生を試みる
+  if (video) {
+    if (video.readyState >= 3) { // HAVE_FUTURE_DATA
+      attemptPlay();
+    } else {
+      video.addEventListener('loadedmetadata', attemptPlay);
+    }
+    
+    // 動画が再生できない場合のエラーハンドリング
+    video.addEventListener('error', activateFallback);
+  } else {
+    // 動画要素がない場合はフォールバック
+    activateFallback();
+  }
+});
+</script>

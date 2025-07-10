@@ -6,7 +6,9 @@ title: 闇男 - 公式サイト
 <section class="hero">
   <!-- 動画背景 -->
   <div class="video-background">
-    <video autoplay muted playsinline>
+    <!-- フォールバック背景 -->
+    <div class="fallback-background"></div>
+    <video id="bg-video" muted playsinline>
       <source src="{{ '/assets/videos/background.mp4' | relative_url }}" type="video/mp4">
     </video>
     <div class="video-overlay"></div>
