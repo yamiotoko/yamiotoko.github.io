@@ -222,7 +222,8 @@ body.nav-active {
 
 .hero-content {
   position: relative;
-  z-index: 2; /* コンテンツを前面に */
+  z-index: 1; /* コンテンツを前面に */
+  // z-index: 2; /* コンテンツを前面に */
   text-align: center;
   padding: 20px; /* モバイルでコンテンツが端に寄らないように */
 }
