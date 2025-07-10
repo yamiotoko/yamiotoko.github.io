@@ -16,7 +16,8 @@ title: 闇男 - 公式サイト
   <div class="hero-content">
     <img src="{{ '/assets/images/logo.png' | relative_url }}" 
          alt="闇男ロゴ" 
-         class="hero-logo">
+         class="hero-logo"
+         data-text="闇男">
     <h1>闇男</h1>
     <p>日常の裏に潜む異常を描く小説家</p>
     <a href="https://note.com/yamiotoko" target="_blank" class="note-link">
