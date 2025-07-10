@@ -39,12 +39,12 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap  # サイトマップ生成
 
-include:
-  - favicon.ico
-  - favicon-*.png
-  - apple-touch-icon.png
-  - android-chrome-*.png
-  - site.webmanifest
+# include:
+#   - favicon.ico
+#   - favicon-*.png
+#   - apple-touch-icon.png
+#   - android-chrome-*.png
+#   - site.webmanifest
 
 
 # Exclude from processing.
