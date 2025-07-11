@@ -6,7 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // ローディング表示を追加
   feedContainer.innerHTML = '<div class="loading">記事を読み込み中...</div>';
   
-  const proxyUrl = 'https://api.allorigins.win/raw?url=';
+  // CORS回避のためのプロキシURLを使用
+  // const proxyUrl = 'https://api.allorigins.win/raw?url=';
+  const proxyUrl = 'https://corsproxy.io/?url=';
   const rssUrl = encodeURIComponent('https://note.com/yamiotoko/rss');
   
   fetch(`${proxyUrl}${rssUrl}`)
