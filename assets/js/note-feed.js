@@ -1,88 +1,139 @@
 document.addEventListener('DOMContentLoaded', () => {
   const feedContainer = document.getElementById('note-feed');
-  
   if (!feedContainer) return;
-  
-  // ローディング表示を追加
+
   feedContainer.innerHTML = '<div class="loading">記事を読み込み中...</div>';
-  
-  // CORS回避のためのプロキシURLを使用
-  // const proxyUrl = 'https://api.allorigins.win/raw?url=';
-  const proxyUrl = 'https://corsproxy.io/?url=';
-  const rssUrl = encodeURIComponent('https://note.com/yamiotoko/rss');
-  
-  fetch(`${proxyUrl}${rssUrl}`)
+  const proxyUrl = 'https://note-rss-proxy.netlify.app/.netlify/functions/note';
+
+  // CORSプロキシ関数 (必要に応じて使用) - サムネイルのCORS問題を解決するために有効化
+  const corsProxy = (url) => {
+    // 公開されているcors-anywhereは不安定な場合があるため、
+    // 自身でプロキシをデプロイすることを推奨します。
+    // 例: https://github.com/Rob--W/cors-anywhere/
+    return `https://cors-anywhere.herokuapp.com/${url}`;
+  };
+
+  fetch(proxyUrl)
     .then(response => {
-      if (!response.ok) throw new Error('Network response was not ok');
+      if (!response.ok) throw new Error(`Network error: ${response.status}`);
       return response.text();
     })
     .then(str => {
+      // 生データを完全にログ出力
+      console.log('Complete RSS Data:', str);
+      
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(str, "text/xml");
       
-      const parseError = xmlDoc.getElementsByTagName("parsererror");
-      if (parseError.length > 0) throw new Error('Error parsing XML');
+      // 詳細なパースエラーチェック
+      const parseError = xmlDoc.querySelector('parsererror');
+      if (parseError) {
+        console.error('XML Parse Error Details:', parseError.innerHTML);
+        throw new Error('Invalid XML format');
+      }
       
       return xmlDoc;
     })
     .then(data => {
       const items = data.querySelectorAll("item");
       let html = '';
-      const mediaNS = "http://search.yahoo.com/mrss/"; // 名前空間をループの外で定義
-      
-      items.forEach(el => {
-        const title = el.querySelector("title").textContent;
-        const link = el.querySelector("link").textContent;
-        const pubDate = new Date(el.querySelector("pubDate").textContent).toLocaleDateString();
-        const description = el.querySelector("description").textContent;
+
+      items.forEach((el, index) => {
+        const title = el.querySelector("title")?.textContent || '';
+        const link = el.querySelector("link")?.textContent || '#';
+        const pubDate = new Date(el.querySelector("pubDate")?.textContent || '').toLocaleDateString();
+        const description = el.querySelector("description")?.textContent || '';
         
-        // サムネイル画像のURLを抽出 - 修正箇所
+        // サムネイルURL取得 (Netlify対応版)
         let thumbnailUrl = '';
-        
-       // 方法1: media:thumbnailタグから直接取得（名前空間対応）
-        const mediaThumbnail = el.getElementsByTagNameNS(mediaNS, "thumbnail")[0];
-        if (mediaThumbnail) {
-          thumbnailUrl = mediaThumbnail.textContent; // textContentでURLを取得
-        }
-        
-        // 方法2: descriptionから画像URLを抽出（CDATA内の最初のimgタグ）
-        if (!thumbnailUrl) {
-          const cdataContent = description.match(/<!\[CDATA\[(.*?)\]\]>/s);
-          if (cdataContent && cdataContent[1]) {
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = cdataContent[1];
-            const img = tempDiv.querySelector('img');
-            if (img) {
-              thumbnailUrl = img.src;
+        try {
+          // media:thumbnailを直接取得
+          const mediaNS = "http://search.yahoo.com/mrss/";
+          const thumbnails = el.getElementsByTagNameNS(mediaNS, "thumbnail");
+          if (thumbnails.length > 0) {
+            thumbnailUrl = thumbnails[0].getAttribute('url') || '';
+            console.log(`Item ${index} - Media Thumbnail:`, thumbnailUrl);
+          }
+
+          // 見つからない場合はdescriptionから抽出
+          if (!thumbnailUrl && description) {
+            const imgRegex = /<img[^>]+src="([^">]+)"/i;
+            const match = description.match(imgRegex);
+            if (match?.[1]) {
+              thumbnailUrl = match[1];
+              console.log(`Item ${index} - Description Image:`, thumbnailUrl);
             }
           }
+
+          // URLを正規化
+          if (thumbnailUrl) {
+            thumbnailUrl = thumbnailUrl
+              .replace(/^http:/, 'https:')
+              .split('?')[0];
+            
+            // CORS問題が疑われる場合はプロキシ経由に
+            thumbnailUrl = corsProxy(thumbnailUrl); // <--- ここをコメント解除しました
+          }
+        } catch (e) {
+          console.error(`Item ${index} Thumbnail Error:`, e);
         }
 
-        // 説明文からHTMLタグを除去してテキストのみを取得
+        // 画像の存在確認 (詳細版) - この部分はクライアント側での確認であり、CORSプロキシの使用後は不要な場合も
+        // ただし、画像が完全に存在しない場合のフォールバックとしては残しておく
+        if (thumbnailUrl) {
+          const imgTest = new Image();
+          imgTest.src = thumbnailUrl;
+          imgTest.onload = () => console.log(`Item ${index} Image Load Success:`, thumbnailUrl);
+          imgTest.onerror = () => {
+            console.warn(`Item ${index} Image Load Failed:`, thumbnailUrl);
+            thumbnailUrl = ''; // 読み込み失敗時はURLを空に
+          };
+        }
+
         const textDescription = description
           .replace(/<[^>]*>/g, '')
           .replace(/<!\[CDATA\[|\]\]>/g, '')
-          .substring(0, 100) + '...';
-          
-        // 100文字を超える場合は省略して「...」を追加        
+          .substring(0, 100) + (description.length > 100 ? '...' : '');
+
         html += `
           <div class="note-item">
             <a href="${link}" target="_blank" rel="noopener noreferrer" class="note-item-link">
-              ${thumbnailUrl ? `<div class="note-thumbnail"><img src="${thumbnailUrl}" alt="${title}" loading="lazy"></div>` : ''}
+              ${thumbnailUrl ? `
+                <div class="note-thumbnail">
+                  <img src="${thumbnailUrl}"
+                    alt="${title}"
+                    loading="lazy"
+                    crossorigin="anonymous"
+                    onerror="
+                      console.error('Image load failed:', this.src);
+                      this.onerror = null;
+                      this.src = 'https://placehold.co/400x225?text=No+Image';
+                      this.style.opacity = '0.7';
+                    ">
+                </div>` : ''}
               <div class="note-content">
                 <h3 class="note-title">${title}</h3>
-                <time datetime="${el.querySelector("pubDate").textContent}">${pubDate}</time>
+                <time datetime="${el.querySelector("pubDate")?.textContent || ''}">${pubDate}</time>
                 <p class="note-description">${textDescription}</p>
               </div>
             </a>
           </div>
         `;
       });
-      
+
       feedContainer.innerHTML = html;
     })
     .catch(error => {
-      console.error('RSS取得エラー:', error);
-      feedContainer.innerHTML = `<p>記事の読み込みに失敗しました。直接<a href="https://note.com/yamiotoko" target="_blank" rel="noopener noreferrer">noteのページ</a>をご覧ください。</p>`;
+      console.error('Fetch Error:', error);
+      feedContainer.innerHTML = `
+        <div class="error-message">
+          <p>コンテンツの読み込みに問題が発生しました</p>
+          <p><a href="https://note.com/yamiotoko" target="_blank">公式サイトをご確認ください</a></p>
+          <details>
+            <summary>エラー詳細</summary>
+            <pre>${error.message}</pre>
+          </details>
+        </div>
+      `;
     });
 });
