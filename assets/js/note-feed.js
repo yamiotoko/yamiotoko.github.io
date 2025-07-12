@@ -3,35 +3,32 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!feedContainer) return;
 
   feedContainer.innerHTML = '<div class="loading">記事を読み込み中...</div>';
-  const proxyUrl = 'https://note-rss-proxy.netlify.app/.netlify/functions/note';
+  // RSSフィード取得用の既存プロキシURL。これは変更しません。
+  const rssProxyUrl = 'https://note-rss-proxy.netlify.app/.netlify/functions/note';
 
-  // CORSプロキシ関数 (必要に応じて使用) - サムネイルのCORS問題を解決するために有効化
+  // CORSプロキシ関数 (画像用)
+  // ここを Netlify Function の新しいエンドポイントに変更します。
   const corsProxy = (url) => {
-    // 公開されているcors-anywhereは不安定な場合があるため、
-    // 自身でプロキシをデプロイすることを推奨します。
-    // 例: https://github.com/Rob--W/cors-anywhere/
-    return `https://cors-anywhere.herokuapp.com/${url}`;
+    return `https://note-rss-proxy.netlify.app/api/image-proxy/${url}`;
   };
 
-  fetch(proxyUrl)
+  fetch(rssProxyUrl) // RSSフィードの取得には rssProxyUrl を使用
     .then(response => {
       if (!response.ok) throw new Error(`Network error: ${response.status}`);
       return response.text();
     })
     .then(str => {
-      // 生データを完全にログ出力
       console.log('Complete RSS Data:', str);
-      
+
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(str, "text/xml");
-      
-      // 詳細なパースエラーチェック
+
       const parseError = xmlDoc.querySelector('parsererror');
       if (parseError) {
         console.error('XML Parse Error Details:', parseError.innerHTML);
         throw new Error('Invalid XML format');
       }
-      
+
       return xmlDoc;
     })
     .then(data => {
@@ -43,51 +40,41 @@ document.addEventListener('DOMContentLoaded', () => {
         const link = el.querySelector("link")?.textContent || '#';
         const pubDate = new Date(el.querySelector("pubDate")?.textContent || '').toLocaleDateString();
         const description = el.querySelector("description")?.textContent || '';
-        
-        // サムネイルURL取得 (Netlify対応版)
+
         let thumbnailUrl = '';
         try {
-          // media:thumbnailを直接取得
           const mediaNS = "http://search.yahoo.com/mrss/";
+          console.log(`Item ${index} - mediaNS:`, mediaNS);
+
           const thumbnails = el.getElementsByTagNameNS(mediaNS, "thumbnail");
+          console.log(`Item ${index} - Found Thumbnails (NodeList):`, thumbnails);
+          console.log(`Item ${index} - Number of Thumbnails:`, thumbnails.length);
+
           if (thumbnails.length > 0) {
-            thumbnailUrl = thumbnails[0].getAttribute('url') || '';
-            console.log(`Item ${index} - Media Thumbnail:`, thumbnailUrl);
+            thumbnailUrl = thumbnails[0].textContent || '';
+            console.log(`Item ${index} - Media Thumbnail URL (Before Proxy):`, thumbnailUrl);
           }
 
-          // 見つからない場合はdescriptionから抽出
           if (!thumbnailUrl && description) {
             const imgRegex = /<img[^>]+src="([^">]+)"/i;
             const match = description.match(imgRegex);
             if (match?.[1]) {
               thumbnailUrl = match[1];
-              console.log(`Item ${index} - Description Image:`, thumbnailUrl);
+              console.log(`Item ${index} - Description Image (Before Proxy):`, thumbnailUrl);
             }
           }
 
-          // URLを正規化
           if (thumbnailUrl) {
             thumbnailUrl = thumbnailUrl
               .replace(/^http:/, 'https:')
               .split('?')[0];
-            
-            // CORS問題が疑われる場合はプロキシ経由に
-            thumbnailUrl = corsProxy(thumbnailUrl); // <--- ここをコメント解除しました
+
+            // ここで新しい画像プロキシ関数を使用
+            thumbnailUrl = corsProxy(thumbnailUrl);
+            console.log(`Item ${index} - Final Thumbnail URL (After Proxy):`, thumbnailUrl);
           }
         } catch (e) {
           console.error(`Item ${index} Thumbnail Error:`, e);
-        }
-
-        // 画像の存在確認 (詳細版) - この部分はクライアント側での確認であり、CORSプロキシの使用後は不要な場合も
-        // ただし、画像が完全に存在しない場合のフォールバックとしては残しておく
-        if (thumbnailUrl) {
-          const imgTest = new Image();
-          imgTest.src = thumbnailUrl;
-          imgTest.onload = () => console.log(`Item ${index} Image Load Success:`, thumbnailUrl);
-          imgTest.onerror = () => {
-            console.warn(`Item ${index} Image Load Failed:`, thumbnailUrl);
-            thumbnailUrl = ''; // 読み込み失敗時はURLを空に
-          };
         }
 
         const textDescription = description
@@ -105,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     loading="lazy"
                     crossorigin="anonymous"
                     onerror="
-                      console.error('Image load failed:', this.src);
+                      console.error('Image load failed (in HTML):', this.src);
                       this.onerror = null;
                       this.src = 'https://placehold.co/400x225?text=No+Image';
                       this.style.opacity = '0.7';
